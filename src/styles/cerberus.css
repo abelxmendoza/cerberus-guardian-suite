@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Chakra Petch", "Segoe UI", sans-serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-ink: #050508;
+  --color-paper: #f5f7ff;
+  --color-muted: #c5cbe0;
+  --color-dim: #9aa3c2;
+  --color-windows: #00bfff;
+  --color-linux: #a020f0;
+  --color-macos: #ff1493;
+  --color-accent: #ff6500;
+  --color-line: rgba(245, 247, 255, 0.14);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  color-scheme: dark;
+  background: #050508;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #050508;
+  color: #f5f7ff;
+  font-family: var(--font-sans);
+}
+
+p,
+li,
+dd,
+h1,
+h2,
+h3,
+pre,
+a {
+  overflow-wrap: anywhere;
+}
+
+::selection {
+  background: rgba(255, 101, 0, 0.35);
+  color: #f5f7ff;
+}
+
+:focus-visible {
+  outline: 2px solid #ff6500;
+  outline-offset: 3px;
+}
+
+.panel {
+  min-width: 0;
+  background:
+    linear-gradient(180deg, rgba(16, 18, 28, 0.92), rgba(7, 8, 12, 0.94));
+  border: 1px solid var(--color-line);
+  box-shadow: inset 0 1px 0 rgba(245, 247, 255, 0.05);
+}
+
+.circuit {
+  background-image:
+    linear-gradient(rgba(0, 191, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160, 32, 240, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+.wolf-glow {
+  animation: wolf-pulse 5.5s ease-in-out infinite;
+}
+
+@keyframes wolf-pulse {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.tri-tone {
+  background-image: linear-gradient(90deg, #00bfff, #d070ff 48%, #ff1493);
+  background-clip: text;
+  color: transparent;
+}
+
+.circuit-dash {
+  stroke-dasharray: 6 10;
+  animation: dash-move 28s linear infinite;
+}
+
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: -320;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .wolf-glow,
+  .circuit-dash {
+    animation: none !important;
+  }
+}
