@@ -1,12 +1,12 @@
-import { developer } from "../../data/site";
+import { developer, site } from "../../data/site";
 import { ExternalLink } from "./ExternalLink";
 
 export function DeveloperSection() {
   return (
     <section id="developer" className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <p className="font-mono text-xs uppercase tracking-[0.22em] text-accent">Author</p>
-      <h2 className="mt-2 max-w-3xl font-display text-3xl tracking-[0.08em] text-paper sm:text-4xl">
-        BUILT BY AN ENGINEER. FOR PEOPLE WHO VALUE CONTROL.
+      <h2 className="mt-2 max-w-3xl font-display text-3xl uppercase tracking-[0.08em] text-paper sm:text-4xl">
+        {site.manifesto}
       </h2>
       <div className="panel mt-8 rounded-lg p-6 sm:p-8">
         <h3 className="font-display text-2xl tracking-wide text-paper">{developer.name}</h3>

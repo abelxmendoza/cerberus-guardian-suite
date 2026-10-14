@@ -7,6 +7,12 @@ describe("Cerberus page", () => {
   it("offers Linux and macOS downloads and keeps Windows in development", () => {
     render(<Cerberus />);
     expect(screen.getByRole("heading", { level: 1, name: "CERBERUS" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: /built by an engineer\. for people who value privacy, security, control\./i,
+      }),
+    ).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Download for Linux" }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "Download for macOS" }).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/in development — no download yet/i).length).toBeGreaterThan(0);

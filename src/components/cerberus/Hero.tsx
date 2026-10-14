@@ -4,6 +4,7 @@ import { site } from "../../data/site";
 import { Reveal } from "./Reveal";
 
 const order = ["windows", "linux", "macos"] as const;
+const [manifestoLead, manifestoRest] = site.manifesto.split(". ");
 
 export function Hero() {
   return (
@@ -32,6 +33,10 @@ export function Hero() {
           </p>
           <p className="tri-tone mt-6 max-w-xl font-display text-2xl tracking-wide sm:text-3xl">
             {site.tagline}
+          </p>
+          <p className="mt-5 max-w-3xl font-display text-lg uppercase leading-snug tracking-[0.12em] text-paper sm:text-2xl">
+            {manifestoLead}.
+            <span className="mt-1 block text-muted">{manifestoRest}</span>
           </p>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
             An open-source security monitoring and system hardening ecosystem built for Windows,

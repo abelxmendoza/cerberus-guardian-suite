@@ -3,6 +3,7 @@ export const site = {
   subtitle: "The Guardian Security Suite",
   tagline: "Three Platforms. One Guardian.",
   secondaryTagline: "Detect. Monitor. Protect.",
+  manifesto: "Built by an engineer. For people who value privacy, security, control.",
   title: "CERBERUS | Cross-Platform Security Toolkit",
   description:
     "Explore CERBERUS, an independent open-source security monitoring and system hardening toolkit for Windows, Linux, and macOS.",
