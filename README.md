@@ -23,7 +23,7 @@ Linux and macOS can be saved to a laptop from the landing page. Each button down
 | Platform | Download | SHA-256 |
 | --- | --- | --- |
 | Linux | [LinuxGuardianWatchdog archive `b923c19`](https://github.com/abelxmendoza/LinuxGuardianWatchdog/archive/b923c198aa37eb6d0712c61b49f67862729ae289.zip) | `3dabde32802a4b466f1254e43a4f7a6d5e616ed564045e0b9730b50957819f2d` |
-| macOS | [MacGuardianWatchdog archive `5605f4b`](https://github.com/abelxmendoza/MacGuardianWatchdog/archive/5605f4b1b4343f2f0bb3c11c4ae69dcb5785dd8e.zip) | `2041ff3577369e428c91ac6be249d39648134b617b36668a4b2d9af138cf50ec` |
+| macOS | [MacGuardianWatchdog archive `e337fad`](https://github.com/abelxmendoza/MacGuardianWatchdog/archive/e337fadff778d4a5dd985525de87984802f9362a.zip) | `c06f1d6df056811ca98efd3e1e43313da2d1d34c9047f8ad831ad8930cfd0c5d` |
 | Windows | None. Clone the repository and build it. | — |
 
 Hashes were computed from those exact zip files on 14 October 2026.
@@ -46,20 +46,22 @@ The Linux project’s own [release readiness note](https://github.com/abelxmendo
 
 ### macOS
 
-Ready to build from the archive. The SwiftUI app needs macOS 14 or later. The shell tools run on macOS 12 or later.
+Ready to install from the archive. The SwiftUI app needs macOS 14 or later and the full Xcode. The shell tools run on macOS 12 or later.
 
 ```bash
-unzip MacGuardianWatchdog-5605f4b1b4343f2f0bb3c11c4ae69dcb5785dd8e.zip
-cd MacGuardianWatchdog-5605f4b1b4343f2f0bb3c11c4ae69dcb5785dd8e/MacGuardianSuiteUI
-swift build -c release
-cp -R ".build/MacGuardian Suite.app" /Applications/
+unzip MacGuardianWatchdog-e337fadff778d4a5dd985525de87984802f9362a.zip
+cd MacGuardianWatchdog-e337fadff778d4a5dd985525de87984802f9362a
+# Double-click Install MacGuardian.command, or:
+bash install.sh
 ```
 
-Xcode Command Line Tools are required (`xcode-select --install`). ClamAV and rkhunter are optional Homebrew tools the scripts call when they are installed. Some features need Full Disk Access, network access for threat-feed updates, or an optional Accessibility grant. Remediation is dry-run by default and quarantines instead of deleting. Details, the command-line menu, and scheduling are in the [Mac README](https://github.com/abelxmendoza/MacGuardianWatchdog/blob/main/README.md), [SECURITY.md](https://github.com/abelxmendoza/MacGuardianWatchdog/blob/main/SECURITY.md), and [PRIVACY.md](https://github.com/abelxmendoza/MacGuardianWatchdog/blob/main/PRIVACY.md).
+The installer moves the project out of Downloads, builds the app with Xcode, and puts MacGuardian Suite in Applications. It asks before installing ClamAV, rkhunter, or background jobs, then runs a self-check. If macOS will not open the command file, right-click it and choose Open. The app is built on your Mac and signed locally. It is not notarized by Apple.
 
-What the Mac app covers, from that README: ClamAV and rkhunter scanning, SHA-256 file integrity, a blue-team view of processes and network connections, threat-intelligence matching, a scored security audit (FileVault, SIP, Gatekeeper, firewall), cache cleaning, process control, and local reports. Scan data stays on the Mac. Email leaves the machine only if you configure it.
+Remove it with `uninstall.sh`. That script removes the app, the background jobs, and the private script copy. Scan results in `~/.macguardian` stay unless you pass `--all`.
 
-This download is the project archive. It is not a notarized or signed installer.
+Details, the command-line menu, and scheduling are in the [Mac README](https://github.com/abelxmendoza/MacGuardianWatchdog/blob/main/README.md), [SECURITY.md](https://github.com/abelxmendoza/MacGuardianWatchdog/blob/main/SECURITY.md), and [PRIVACY.md](https://github.com/abelxmendoza/MacGuardianWatchdog/blob/main/PRIVACY.md).
+
+What the Mac app covers, from that README: ClamAV and rkhunter scanning, SHA-256 file integrity, a blue-team view of processes and network connections, threat-intelligence matching, a scored security audit (FileVault, SIP, Gatekeeper, firewall), cache cleaning, process control, and local reports. Scan data stays on the Mac. Email leaves the machine only if you configure it. On 14 October 2026 the MacGuardian CI workflow passed on main for commit `e337fad`.
 
 ### Windows
 
