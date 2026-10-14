@@ -11,9 +11,9 @@ const cards = [
   },
   {
     title: "Verified releases",
-    body: `No GitHub Release exists for Windows, Linux, or macOS as of ${evidenceDate}. There is no published checksum, file size, or signed installer to verify.`,
-    href: guardians[0].release.releasePageUrl,
-    link: "Windows releases page",
+    body: `Linux and macOS downloads on this page are GitHub archives of those apps, each with a SHA-256 you can check. Windows has no download. It is still in development and is the least complete Guardian. Checked ${evidenceDate}.`,
+    href: guardians[1].release.downloadUrl ?? guardians[1].repositoryUrl,
+    link: "Linux download",
   },
   {
     title: "Automated testing",

@@ -69,19 +69,20 @@ export function GuardianCard({ guardian }: GuardianCardProps) {
         ))}
       </ul>
       <div className="mt-auto flex flex-col gap-2 pt-6">
-        {canDownload && guardian.release.downloadUrl ? (
+        {canDownload && guardian.release.downloadUrl && guardian.release.downloadLabel ? (
           <ExternalLink
             href={guardian.release.downloadUrl}
-            className="inline-flex min-h-12 items-center justify-center rounded px-4 font-display tracking-wide text-ink"
+            className="inline-flex min-h-12 items-center justify-center rounded px-4 text-center font-display tracking-wide"
+            style={{ background: guardian.themeColor, color: guardian.id === "windows" ? "#050508" : "#F5F7FF" }}
           >
-            Download for {guardian.platform}
+            {guardian.release.downloadLabel}
           </ExternalLink>
         ) : (
           <p
             className="inline-flex min-h-12 items-center justify-center rounded border border-dashed border-white/20 px-4 text-center font-display tracking-wide text-dim"
             role="status"
           >
-            {guardian.release.statusLabel}
+            {guardian.id === "windows" ? "In development — no download yet" : guardian.release.statusLabel}
           </p>
         )}
         <ExternalLink

@@ -1,5 +1,6 @@
 node_modules
 dist
+.vercel
 playwright-report
 test-results
 blob-report
@@ -7,3 +8,4 @@ blob-report
 *.local
 .vite
 coverage
+.env*

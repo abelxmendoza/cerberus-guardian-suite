@@ -4,10 +4,12 @@ import { describe, expect, it } from "vitest";
 import { Cerberus } from "../pages/Cerberus";
 
 describe("Cerberus page", () => {
-  it("renders the product name and keeps downloads inactive", () => {
+  it("offers Linux and macOS downloads and keeps Windows in development", () => {
     render(<Cerberus />);
     expect(screen.getByRole("heading", { level: 1, name: "CERBERUS" })).toBeInTheDocument();
-    expect(screen.getAllByRole("status").length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("link", { name: "Download for Linux" }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("link", { name: "Download for macOS" }).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/in development — no download yet/i).length).toBeGreaterThan(0);
     const binaries = screen.getAllByRole("link").map((link) => link.getAttribute("href") ?? "");
     expect(binaries.some((href) => /\.(exe|msi|msix|dmg|pkg|deb|rpm)$/i.test(href))).toBe(false);
     expect(binaries.every((href) => href.length > 0 && !href.endsWith("#"))).toBe(true);

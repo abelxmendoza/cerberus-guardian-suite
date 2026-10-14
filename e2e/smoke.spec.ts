@@ -12,7 +12,12 @@ test("landing page states only source builds and has no binary links", async ({ 
     anchors.map((anchor) => anchor.getAttribute("href") ?? ""),
   );
   for (const href of hrefs) {
-    expect(href).not.toMatch(/\.(exe|msi|msix|dmg|pkg|deb|rpm|zip)$/i);
+    if (/\.zip$/i.test(href)) {
+      expect(href).toMatch(
+        /^https:\/\/github\.com\/abelxmendoza\/(?:Linux|Mac)GuardianWatchdog\/archive\/[0-9a-f]{40}\.zip$/,
+      );
+    }
+    expect(href).not.toMatch(/\.(exe|msi|msix|dmg|pkg|deb|rpm)$/i);
     if (href.startsWith("http")) {
       const rel = await page.locator(`a[href="${href}"]`).first().getAttribute("rel");
       expect(rel).toContain("noopener");

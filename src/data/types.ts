@@ -20,6 +20,7 @@ export interface ReleaseRecord {
    * Leave null until a real asset exists. Do not use placeholder URLs.
    */
   downloadUrl: string | null;
+  downloadLabel: string | null;
   releaseNotesUrl: string | null;
   releasePageUrl: string;
 }

@@ -4,12 +4,14 @@ import { guardians } from "../data/guardians";
 import { isPublishableDownload, releases } from "../data/releases";
 
 describe("release configuration", () => {
-  it("does not publish a download for any guardian", () => {
-    for (const guardian of guardians) {
-      expect(guardian.release.downloadUrl).toBeNull();
-      expect(guardian.release.checksum).toBeNull();
-      expect(isPublishableDownload(guardian.release)).toBe(false);
-    }
+  it("publishes Linux and macOS downloads and keeps Windows unpublished", () => {
+    expect(releases.windows.downloadUrl).toBeNull();
+    expect(releases.windows.releaseStatus).toBe("development");
+    expect(isPublishableDownload(releases.windows)).toBe(false);
+    expect(isPublishableDownload(releases.linux)).toBe(true);
+    expect(isPublishableDownload(releases.macos)).toBe(true);
+    expect(releases.linux.downloadLabel).toBe("Download for Linux");
+    expect(releases.macos.downloadLabel).toBe("Download for macOS");
   });
 
   it("rejects a development build even if a URL is pasted in", () => {

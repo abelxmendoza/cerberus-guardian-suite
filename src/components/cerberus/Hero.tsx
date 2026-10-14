@@ -79,7 +79,7 @@ export function Hero() {
                   className="relative z-10 mx-auto h-auto w-full max-w-sm object-contain"
                 />
                 <figcaption className="relative z-10 px-2 pb-2 pt-1 font-mono text-[11px] uppercase tracking-[0.16em] text-dim">
-                  Repository artwork · {guardian.platform}
+                  {guardian.id === "windows" ? "In development · least complete" : "Ready"} · {guardian.platform}
                 </figcaption>
               </figure>
             );

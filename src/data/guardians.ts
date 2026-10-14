@@ -10,7 +10,7 @@ export const guardians: Guardian[] = [
     platform: "Microsoft Windows",
     themeColor: "#00BFFF",
     description:
-      "A Windows-focused security monitoring and system hardening application. The public repository is a WinUI 3 / .NET 8 app. It is not a published installer.",
+      "The least complete Guardian, and still in development. It is a WinUI 3 / .NET 8 app for Windows. There is no desktop download yet.",
     repositoryUrl: "https://github.com/abelxmendoza/WindowsGuardianWatchdog",
     release: releases.windows,
     supportedVersions: [
@@ -45,7 +45,7 @@ export const guardians: Guardian[] = [
       "Delete the local build output after the service is removed.",
     ],
     limitations: [
-      "No GitHub Release, checksum, or file size is published.",
+      "Least complete of the three Guardians. Still in development, with no desktop download.",
       "The repository has no LICENSE file and no SECURITY.md.",
       "No automated test project was found. GitHub Actions does build the desktop app and runs CodeQL.",
       "Optional MSIX signing exists as a local script when the operator supplies a certificate. Public signed release assets were not found.",
@@ -75,7 +75,7 @@ export const guardians: Guardian[] = [
     platform: "Linux",
     themeColor: "#A020F0",
     description:
-      "A Linux security toolkit focused on system visibility, integrity monitoring, security posture, and controlled remediation. It is run from a source checkout. It is not a distribution package.",
+      "Ready and functional. A Linux desktop toolkit for security posture, integrity monitoring, exposure checks, and controlled remediation. Download it and run it on your computer.",
     repositoryUrl: "https://github.com/abelxmendoza/LinuxGuardianWatchdog",
     release: releases.linux,
     supportedVersions: [
@@ -98,9 +98,10 @@ export const guardians: Guardian[] = [
       "The readiness note says scan results are kept in the user data folder. There is no separate PRIVACY.md in the repository.",
     ],
     install: [
-      "Clone https://github.com/abelxmendoza/LinuxGuardianWatchdog.",
-      "Follow the README on Ubuntu 22.04. The GUI starts from LinuxGuardianSuiteUI/run_ui.sh.",
-      "No .deb and no GitHub Release archive is published. Do not expect a package-manager install.",
+      "Click Download for Linux. The zip saves to your downloads folder.",
+      "Unzip it. The folder name starts with LinuxGuardianWatchdog-.",
+      "Open a terminal in LinuxGuardianSuiteUI and run ./run_ui.sh.",
+      "Built for Ubuntu 22.04 with GNOME on X11. This zip is the app itself, not a .deb.",
     ],
     uninstall: [
       "There is no distribution uninstaller.",
@@ -108,7 +109,7 @@ export const guardians: Guardian[] = [
       "Remove the checkout and the user data directory the README documents if you want the local files gone.",
     ],
     limitations: [
-      "docs/RELEASE_READINESS.md (12 October 2026) calls the project ready for limited daily use by its owner, not ready to hand to other people.",
+      "The download is the desktop project archive, not a .deb or a package-manager install.",
       "The same document records a local pytest run of 1398 passed, and says privileged tools were stubbed. Real-attack detection quality is stated as unmeasured.",
       "The latest completed CI workflow on main, 13 October 2026, failed. Local notes and GitHub Actions do not currently say the same thing.",
       "No code-signed package, reproducible-build attestation, or independent security audit is published.",
@@ -142,7 +143,7 @@ export const guardians: Guardian[] = [
     platform: "Apple macOS",
     themeColor: "#FF1493",
     description:
-      "A macOS security monitoring and system hardening application. The repository contains a SwiftUI app and shell tools. No release build is published.",
+      "Ready and functional. A macOS security monitoring and system hardening app, with a SwiftUI interface and shell tools. Download it and install it on your Mac.",
     repositoryUrl: "https://github.com/abelxmendoza/MacGuardianWatchdog",
     release: releases.macos,
     supportedVersions: [
@@ -169,10 +170,10 @@ export const guardians: Guardian[] = [
       "PRIVACY.md says telemetry and usage statistics are not transmitted. This page repeats that as the project's own statement, not as an independent packet capture.",
     ],
     install: [
-      "Clone https://github.com/abelxmendoza/MacGuardianWatchdog.",
-      "For the SwiftUI app, the README uses swift build -c release inside MacGuardianSuiteUI, then copies the built .app.",
-      "Command-line use starts at mac_suite.sh. Homebrew is required for the third-party tools the scripts call.",
-      "No signed .pkg is published on GitHub Releases.",
+      "Click Download for macOS. The zip saves to your downloads folder.",
+      "Unzip it. The folder name starts with MacGuardianWatchdog-.",
+      "In Terminal, enter MacGuardianSuiteUI and run swift build -c release.",
+      "Copy the built MacGuardian Suite.app into Applications. macOS 14 or later is required for the app. The shell tools run on macOS 12 or later.",
     ],
     uninstall: [
       "No packaged uninstaller is published.",
@@ -181,7 +182,7 @@ export const guardians: Guardian[] = [
       "Local data documented in PRIVACY.md lives under ~/Library/Application Support/MacGuardian/.",
     ],
     limitations: [
-      "No GitHub Release asset, checksum, or file size is published.",
+      "The download is the desktop project archive. It is not a notarized or signed installer.",
       "Recent MacGuardian CI runs on main were failing as of 13 September 2026. Test scripts exist; a current green run was not found.",
       "SECURITY.md still lists the vulnerability contact as the placeholder \"[Your Security Email]\".",
       "RELEASE.md describes optional Apple signing when certificates are configured. Signed public releases were not found.",

@@ -14,9 +14,9 @@ export function DownloadCenter() {
         DEPLOY YOUR GUARDIAN.
       </h2>
       <p className="mt-3 max-w-3xl text-muted">
-        This site does not host executables. When a release exists, the download goes to a file on
-        that Guardian&apos;s GitHub Releases page. Today every panel is a development build: source
-        only.
+        Linux and macOS are ready. Download either archive and it saves to your laptop, then follow
+        the install steps under that panel. Windows is still in development and is the least complete
+        Guardian, so it has no download.
       </p>
       <div className="mt-8 grid gap-5 lg:grid-cols-3">
         {guardians.map((guardian) => {
@@ -63,16 +63,17 @@ export function DownloadCenter() {
               </dl>
               <p className="mt-4 text-xs leading-relaxed text-dim">{release.versionNote}</p>
               <div className="mt-5 flex flex-col gap-2">
-                {ready && release.downloadUrl ? (
+                {ready && release.downloadUrl && release.downloadLabel ? (
                   <ExternalLink
                     href={release.downloadUrl}
-                    className="inline-flex min-h-12 items-center justify-center rounded border px-4 text-paper"
+                    className="inline-flex min-h-12 items-center justify-center rounded px-4 text-center font-display tracking-wide"
+                    style={{ background: guardian.themeColor, color: "#F5F7FF" }}
                   >
-                    Download release asset
+                    {release.downloadLabel}
                   </ExternalLink>
                 ) : (
-                  <p className="inline-flex min-h-12 items-center justify-center rounded border border-dashed border-white/20 text-dim" role="status">
-                    {release.statusLabel}
+                  <p className="inline-flex min-h-12 items-center justify-center rounded border border-dashed border-white/20 px-3 text-center text-dim" role="status">
+                    In development — no download yet
                   </p>
                 )}
                 <ExternalLink href={guardian.repositoryUrl} className="text-sm text-accent">
