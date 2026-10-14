@@ -11,9 +11,9 @@ const cards = [
   },
   {
     title: "Verified releases",
-    body: `Linux and macOS downloads on this page are GitHub archives of those apps, each with a SHA-256 you can check. Windows has no download. It is still in development and is the least complete Guardian. Checked ${evidenceDate}.`,
-    href: guardians[1].release.downloadUrl ?? guardians[1].repositoryUrl,
-    link: "Linux download",
+    body: `All three downloads on this page are GitHub archives of those apps, each with a SHA-256 you can check. All three are in active development. Windows is the least ready, and its archive is not a signed installer. Checked ${evidenceDate}.`,
+    href: guardians[0].release.downloadUrl ?? guardians[0].repositoryUrl,
+    link: "Windows download",
   },
   {
     title: "Automated testing",

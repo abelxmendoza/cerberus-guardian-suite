@@ -14,9 +14,9 @@ export function DownloadCenter() {
         DEPLOY YOUR GUARDIAN.
       </h2>
       <p className="mt-3 max-w-3xl text-muted">
-        Linux and macOS are ready. Download either archive and it saves to your laptop, then follow
-        the install steps under that panel. Windows is still in development and is the least complete
-        Guardian, so it has no download.
+        All three Guardians are in active development. Download an archive and it saves to your
+        computer, then follow the install steps under that panel. Windows is the least ready. Its
+        file is the project archive, not a signed installer.
       </p>
       <div className="mt-8 grid gap-5 lg:grid-cols-3">
         {guardians.map((guardian) => {
@@ -67,7 +67,7 @@ export function DownloadCenter() {
                   <ExternalLink
                     href={release.downloadUrl}
                     className="inline-flex min-h-12 items-center justify-center rounded px-4 text-center font-display tracking-wide"
-                    style={{ background: guardian.themeColor, color: "#F5F7FF" }}
+                    style={{ background: guardian.themeColor, color: guardian.id === "windows" ? "#050508" : "#F5F7FF" }}
                   >
                     {release.downloadLabel}
                   </ExternalLink>
@@ -96,11 +96,10 @@ export function DownloadCenter() {
       </div>
 
       <div className="panel mt-8 rounded-lg p-5 sm:p-6">
-        <h3 className="font-display text-2xl tracking-wide text-paper">Verify a future download</h3>
+        <h3 className="font-display text-2xl tracking-wide text-paper">Verify a download</h3>
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          There is no file to checksum today. When a Guardian publishes a GitHub Release asset, compare
-          the SHA-256 on that release with a hash you compute locally. Do not run a build from a
-          random mirror.
+          Each button on this page is a GitHub archive of one commit. Compare the SHA-256 shown above
+          with a hash you compute from the file you saved. Do not run a build from a random mirror.
         </p>
         <div className="mt-4 grid min-w-0 gap-4 md:grid-cols-2">
           <div>

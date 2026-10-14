@@ -10,27 +10,27 @@ CERBERUS does not replace antivirus or endpoint protection. It watches, explains
 
 | Guardian | Status | Repository |
 | --- | --- | --- |
-| [MacGuardianWatchdog](https://github.com/abelxmendoza/MacGuardianWatchdog) | Ready | SwiftUI app and shell tools for macOS |
-| [LinuxGuardianWatchdog](https://github.com/abelxmendoza/LinuxGuardianWatchdog) | Ready | GTK app and shell tools for Linux |
-| [WindowsGuardianWatchdog](https://github.com/abelxmendoza/WindowsGuardianWatchdog) | In development. Least complete. No download. | WinUI 3 / .NET 8 app for Windows |
+| [MacGuardianWatchdog](https://github.com/abelxmendoza/MacGuardianWatchdog) | Active development | SwiftUI app and shell tools for macOS |
+| [LinuxGuardianWatchdog](https://github.com/abelxmendoza/LinuxGuardianWatchdog) | Active development | GTK app and shell tools for Linux |
+| [WindowsGuardianWatchdog](https://github.com/abelxmendoza/WindowsGuardianWatchdog) | Active development. Least ready. | WinUI 3 / .NET 8 app for Windows |
 
 MacGuardian is the original suite. LinuxGuardian is the Linux desktop port of that idea. WindowsGuardian is the native Windows port and is still the least developed of the three.
 
 ## Get the desktop apps
 
-Linux and macOS can be saved to a laptop from the landing page. Each button downloads a GitHub archive of one commit. These are the apps, not a `.deb`, `.dmg`, or signed installer. Windows has no download yet.
+All three can be saved to a computer from the landing page. Each button downloads a GitHub archive of one commit. These are the projects, not a `.deb`, `.dmg`, or signed installer. All three are in active development. Windows is the least ready.
 
 | Platform | Download | SHA-256 |
 | --- | --- | --- |
 | Linux | [LinuxGuardianWatchdog archive `b923c19`](https://github.com/abelxmendoza/LinuxGuardianWatchdog/archive/b923c198aa37eb6d0712c61b49f67862729ae289.zip) | `3dabde32802a4b466f1254e43a4f7a6d5e616ed564045e0b9730b50957819f2d` |
 | macOS | [MacGuardianWatchdog archive `e337fad`](https://github.com/abelxmendoza/MacGuardianWatchdog/archive/e337fadff778d4a5dd985525de87984802f9362a.zip) | `c06f1d6df056811ca98efd3e1e43313da2d1d34c9047f8ad831ad8930cfd0c5d` |
-| Windows | None. Clone the repository and build it. | — |
+| Windows | [WindowsGuardianWatchdog archive `f8b5feb`](https://github.com/abelxmendoza/WindowsGuardianWatchdog/archive/f8b5febb2ba393dd1d3b3cff5f32a29d6e8c826b.zip) | `a1baf00e819b04af570328e943cfe83004b5484a9e8fb8300257e9bf8449824e` |
 
 Hashes were computed from those exact zip files on 14 October 2026.
 
 ### Linux
 
-Ready to run from the archive. The verified target is Ubuntu 22.04 with GNOME on X11. Other distributions are untested.
+In active development. The verified target is Ubuntu 22.04 with GNOME on X11. Other distributions are untested.
 
 ```bash
 unzip LinuxGuardianWatchdog-b923c198aa37eb6d0712c61b49f67862729ae289.zip
@@ -46,7 +46,7 @@ The Linux project’s own [release readiness note](https://github.com/abelxmendo
 
 ### macOS
 
-Ready to install from the archive. The SwiftUI app needs macOS 14 or later and the full Xcode. The shell tools run on macOS 12 or later.
+In active development. The SwiftUI app needs macOS 14 or later and the full Xcode. The shell tools run on macOS 12 or later.
 
 ```bash
 unzip MacGuardianWatchdog-e337fadff778d4a5dd985525de87984802f9362a.zip
@@ -65,17 +65,17 @@ What the Mac app covers, from that README: ClamAV and rkhunter scanning, SHA-256
 
 ### Windows
 
-Still in development, and the least complete Guardian. There is no desktop download.
+In active development, and the least ready Guardian. The download is the project archive for commit `f8b5feb`, not a signed MSIX. That repository’s [distribution notes](https://github.com/abelxmendoza/WindowsGuardianWatchdog/blob/main/DISTRIBUTION.md) describe a signed `WindowsGuardianWatchdog.msix` as the public installer. No such file is published.
 
 ```bash
-git clone https://github.com/abelxmendoza/WindowsGuardianWatchdog.git
-cd WindowsGuardianWatchdog
-dotnet build
+unzip WindowsGuardianWatchdog-f8b5febb2ba393dd1d3b3cff5f32a29d6e8c826b.zip
+cd WindowsGuardianWatchdog-f8b5febb2ba393dd1d3b3cff5f32a29d6e8c826b
+dotnet build -c Release
 ```
 
-Requirements from the Windows README: Windows 10 version 1809 (build 17763) or later, or Windows 11, plus the .NET 8 SDK. The project targets `net8.0-windows10.0.19041.0` and `win-x64`, and the app manifest requests administrator rights.
+Requirements from the Windows README: Windows 10 version 1809 (build 17763) or later, or Windows 11, plus the .NET 8 SDK. The project targets `net8.0-windows10.0.19041.0` and `win-x64`, and the app manifest requests administrator rights. Start the built app from `bin/Release/net8.0-windows10.0.19041.0/`.
 
-The Windows tree is a WinUI 3 app with modules for process monitoring, file integrity, blue-team detection, security audit, and a remediation engine that defaults to dry-run. Packaging scripts for a zip, an MSIX, and a portable build exist in that repository. They are not a published release. The repository has no `LICENSE` file and no `SECURITY.md`. Build and service notes are in the [Windows README](https://github.com/abelxmendoza/WindowsGuardianWatchdog/blob/main/README.md).
+The Windows tree is a WinUI 3 app with modules for process monitoring, file integrity, blue-team detection, security audit, remediation that defaults to dry-run, plus app updates, hardening, cache cleanup, and file search. A release workflow can publish a signed MSIX when a trusted certificate is configured. That workflow has not published a release. The repository has no `LICENSE` file and no `SECURITY.md`. Build and service notes are in the [Windows README](https://github.com/abelxmendoza/WindowsGuardianWatchdog/blob/main/README.md).
 
 ## How the three apps line up
 

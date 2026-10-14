@@ -10,7 +10,7 @@ export const guardians: Guardian[] = [
     platform: "Microsoft Windows",
     themeColor: "#00BFFF",
     description:
-      "The least complete Guardian, and still in development. It is a WinUI 3 / .NET 8 app for Windows. There is no desktop download yet.",
+      "In active development, and the least ready Guardian. A WinUI 3 / .NET 8 app for Windows. Download the project archive and build it on your PC.",
     repositoryUrl: "https://github.com/abelxmendoza/WindowsGuardianWatchdog",
     release: releases.windows,
     supportedVersions: [
@@ -23,6 +23,7 @@ export const guardians: Guardian[] = [
       "File integrity monitoring (Core/FileIntegrityMonitor.cs)",
       "Security audit and hardening modules (Core/SecurityAudit.cs, Core/Hardening/)",
       "Remediation with dry-run defaulting to true (Core/RemediationEngine.cs)",
+      "App update, hardening, cache cleanup, and file search views added in commit f8b5feb",
     ],
     permissions: [
       "app.manifest requests requireAdministrator. The process is designed to run elevated.",
@@ -34,18 +35,20 @@ export const guardians: Guardian[] = [
       "A telemetry client was not identified in that feed service. This page does not claim the whole Windows app has been audited for every outbound call.",
     ],
     install: [
-      "Clone https://github.com/abelxmendoza/WindowsGuardianWatchdog.",
-      "Build with the .NET 8 SDK. The project uses WinUI 3 and targets win-x64.",
-      "From the repository: dotnet build.",
-      "The manifest requests administrator rights when the built app starts.",
+      "Click Download for Windows. The zip saves to your downloads folder.",
+      "Unzip it. The folder name starts with WindowsGuardianWatchdog-.",
+      "You need Windows 10 version 1809 or later, or Windows 11, and the .NET 8 SDK.",
+      "In that folder run dotnet build -c Release, then start the app from bin/Release/net8.0-windows10.0.19041.0/.",
+      "The app asks for administrator approval. This zip is the project, not a signed MSIX.",
     ],
     uninstall: [
-      "No published installer means there is no published uninstaller package.",
+      "There is no signed installer, so there is no packaged uninstaller.",
       "If the optional service was installed, InstallService.ps1 -Uninstall removes that service. Run it from an elevated PowerShell session.",
-      "Delete the local build output after the service is removed.",
+      "Delete the unzipped folder and its build output.",
     ],
     limitations: [
-      "Least complete of the three Guardians. Still in development, with no desktop download.",
+      "Least ready of the three Guardians, and still in active development.",
+      "The download is the project archive. DISTRIBUTION.md says the public installer is a signed MSIX, and that file is not published.",
       "The repository has no LICENSE file and no SECURITY.md.",
       "No automated test project was found. GitHub Actions does build the desktop app and runs CodeQL.",
       "Optional MSIX signing exists as a local script when the operator supplies a certificate. Public signed release assets were not found.",
@@ -65,7 +68,7 @@ export const guardians: Guardian[] = [
       },
     ],
     ciNote:
-      "On 13 October 2026 the Windows desktop build and CodeQL workflows completed successfully on main. That is a compile and code scan, not a published test report.",
+      "On 14 October 2026 the Windows desktop build and CodeQL workflows completed successfully on main for commit f8b5feb. That is a compile and code scan, not a published test report.",
     ciUrl: "https://github.com/abelxmendoza/WindowsGuardianWatchdog/actions",
     license: "No LICENSE file in the repository.",
   },
@@ -75,7 +78,7 @@ export const guardians: Guardian[] = [
     platform: "Linux",
     themeColor: "#A020F0",
     description:
-      "Ready and functional. A Linux desktop toolkit for security posture, integrity monitoring, exposure checks, and controlled remediation. Download it and run it on your computer.",
+      "In active development. A Linux desktop toolkit for security posture, integrity monitoring, exposure checks, and controlled remediation. Download it and run it on your computer.",
     repositoryUrl: "https://github.com/abelxmendoza/LinuxGuardianWatchdog",
     release: releases.linux,
     supportedVersions: [
@@ -143,7 +146,7 @@ export const guardians: Guardian[] = [
     platform: "Apple macOS",
     themeColor: "#FF1493",
     description:
-      "Ready and functional. A macOS security monitoring and system hardening app, with a SwiftUI interface and shell tools. Download it and install it on your Mac.",
+      "In active development. A macOS security monitoring and system hardening app, with a SwiftUI interface and shell tools. Download it and install it on your Mac.",
     repositoryUrl: "https://github.com/abelxmendoza/MacGuardianWatchdog",
     release: releases.macos,
     supportedVersions: [

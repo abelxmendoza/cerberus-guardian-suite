@@ -2,32 +2,35 @@ import type { GuardianId, ReleaseRecord } from "./types";
 
 /**
  * Download configuration for CERBERUS.
- * Linux and macOS links are GitHub archives of the commits below.
+ * Each link is a GitHub archive of the commit below.
  * SHA-256 values were computed from those exact files on 14 October 2026.
- * Windows stays unpublished: it is still in development.
+ * All three Guardians are in active development. Windows is the least ready.
+ * Its archive is source, not the signed MSIX described in that repository.
  */
 export const releases: Record<GuardianId, ReleaseRecord> = {
   windows: {
-    version: null,
+    version: "f8b5feb",
     versionNote:
-      "Least complete Guardian. Still in development. No desktop download is published. The project file version 1.0.0 is not an installer.",
-    releaseStatus: "development",
-    statusLabel: "In development",
-    releaseDate: null,
-    fileSize: null,
-    checksum: null,
-    architectures: ["win-x64"],
-    downloadUrl: null,
-    downloadLabel: null,
-    releaseNotesUrl: null,
+      "Active development, and the least ready Guardian. The button downloads the Windows project archive for commit f8b5feb. Unzip it and build it on your PC. This is not the signed MSIX. That installer is not published.",
+    releaseStatus: "beta",
+    statusLabel: "Least ready",
+    releaseDate: "14 October 2026",
+    fileSize: "2.2 MB",
+    checksum: "a1baf00e819b04af570328e943cfe83004b5484a9e8fb8300257e9bf8449824e",
+    architectures: ["source archive"],
+    downloadUrl:
+      "https://github.com/abelxmendoza/WindowsGuardianWatchdog/archive/f8b5febb2ba393dd1d3b3cff5f32a29d6e8c826b.zip",
+    downloadLabel: "Download for Windows",
+    releaseNotesUrl:
+      "https://github.com/abelxmendoza/WindowsGuardianWatchdog/commit/f8b5febb2ba393dd1d3b3cff5f32a29d6e8c826b",
     releasePageUrl: "https://github.com/abelxmendoza/WindowsGuardianWatchdog/releases",
   },
   linux: {
     version: "b923c19",
     versionNote:
-      "Ready and functional. The button downloads the Linux desktop archive for commit b923c19. Unzip it on your computer and start the app. This is not a .deb.",
+      "In active development. The button downloads the Linux desktop archive for commit b923c19. Unzip it on your computer and start the app. This is not a .deb.",
     releaseStatus: "stable",
-    statusLabel: "Ready",
+    statusLabel: "Active development",
     releaseDate: "13 October 2026",
     fileSize: "3.3 MB",
     checksum: "3dabde32802a4b466f1254e43a4f7a6d5e616ed564045e0b9730b50957819f2d",
@@ -42,9 +45,9 @@ export const releases: Record<GuardianId, ReleaseRecord> = {
   macos: {
     version: "e337fad",
     versionNote:
-      "Ready and functional. The button downloads the macOS archive for commit e337fad. Unzip it and double-click Install MacGuardian.command: it builds the app on your Mac with Xcode and installs it. This is not a notarized installer.",
+      "In active development. The button downloads the macOS archive for commit e337fad. Unzip it and double-click Install MacGuardian.command: it builds the app on your Mac with Xcode and installs it. This is not a notarized installer.",
     releaseStatus: "stable",
-    statusLabel: "Ready",
+    statusLabel: "Active development",
     releaseDate: "14 October 2026",
     fileSize: "16.3 MB",
     checksum: "c06f1d6df056811ca98efd3e1e43313da2d1d34c9047f8ad831ad8930cfd0c5d",

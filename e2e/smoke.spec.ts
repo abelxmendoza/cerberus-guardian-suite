@@ -14,7 +14,7 @@ test("landing page states only source builds and has no binary links", async ({ 
   for (const href of hrefs) {
     if (/\.zip$/i.test(href)) {
       expect(href).toMatch(
-        /^https:\/\/github\.com\/abelxmendoza\/(?:Linux|Mac)GuardianWatchdog\/archive\/[0-9a-f]{40}\.zip$/,
+        /^https:\/\/github\.com\/abelxmendoza\/(?:Windows|Linux|Mac)GuardianWatchdog\/archive\/[0-9a-f]{40}\.zip$/,
       );
     }
     expect(href).not.toMatch(/\.(exe|msi|msix|dmg|pkg|deb|rpm)$/i);
