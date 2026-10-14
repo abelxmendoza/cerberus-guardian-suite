@@ -40,20 +40,20 @@ export const releases: Record<GuardianId, ReleaseRecord> = {
     releasePageUrl: "https://github.com/abelxmendoza/LinuxGuardianWatchdog",
   },
   macos: {
-    version: "5605f4b",
+    version: "e337fad",
     versionNote:
-      "Ready and functional. The button downloads the macOS desktop archive for commit 5605f4b. Unzip it on your Mac and build the app with the steps below. This is not a notarized installer.",
+      "Ready and functional. The button downloads the macOS archive for commit e337fad. Unzip it and double-click Install MacGuardian.command: it builds the app on your Mac with Xcode and installs it. This is not a notarized installer.",
     releaseStatus: "stable",
     statusLabel: "Ready",
-    releaseDate: "13 September 2026",
+    releaseDate: "14 October 2026",
     fileSize: "16.3 MB",
-    checksum: "2041ff3577369e428c91ac6be249d39648134b617b36668a4b2d9af138cf50ec",
+    checksum: "c06f1d6df056811ca98efd3e1e43313da2d1d34c9047f8ad831ad8930cfd0c5d",
     architectures: ["source archive"],
     downloadUrl:
-      "https://github.com/abelxmendoza/MacGuardianWatchdog/archive/5605f4b1b4343f2f0bb3c11c4ae69dcb5785dd8e.zip",
+      "https://github.com/abelxmendoza/MacGuardianWatchdog/archive/e337fadff778d4a5dd985525de87984802f9362a.zip",
     downloadLabel: "Download for macOS",
     releaseNotesUrl:
-      "https://github.com/abelxmendoza/MacGuardianWatchdog/commit/5605f4b1b4343f2f0bb3c11c4ae69dcb5785dd8e",
+      "https://github.com/abelxmendoza/MacGuardianWatchdog/commit/e337fadff778d4a5dd985525de87984802f9362a",
     releasePageUrl: "https://github.com/abelxmendoza/MacGuardianWatchdog",
   },
 };

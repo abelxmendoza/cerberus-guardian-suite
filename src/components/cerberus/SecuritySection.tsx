@@ -51,10 +51,10 @@ export function SecuritySection() {
       <div className="panel mt-6 rounded-lg p-5">
         <h3 className="font-display text-xl text-paper">Report a vulnerability</h3>
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          macOS is the only Guardian with a SECURITY.md. That file asks reporters not to open a public
-          issue, then gives the contact as the placeholder &quot;[Your Security Email]&quot;. Until a real
-          address is committed, do not send exploit detail to that placeholder, and do not post a
-          working exploit in a public issue.
+          macOS is the only Guardian with a SECURITY.md. It asks reporters not to put details in a
+          public issue: use GitHub&apos;s private vulnerability reporting (Security tab, Report a
+          vulnerability) if the repository offers it, otherwise open an issue titled &quot;Security
+          contact request&quot; with no details and wait for a private channel.
         </p>
         <p className="mt-3 text-sm leading-relaxed text-muted">
           Linux and Windows do not publish SECURITY.md. Use the repository&apos;s private security
