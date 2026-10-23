@@ -1,0 +1,76 @@
+import Foundation
+import Combine
+
+@MainActor
+class SecurityAuditViewModel: ObservableObject {
+    @Published var checks: [AuditCheck] = []
+    @Published var summary: AuditSummary = AuditSummary()
+    @Published var loading = false
+    @Published var errorMessage: String?
+    @Published var lastRunDate: Date?
+    
+    func run(repositoryPath: String) async {
+        loading = true
+        errorMessage = nil
+
+        let (loadedChecks, loadedSummary) = await SecurityAuditScriptService.shared.runAudit(repositoryPath: repositoryPath)
+        
+        checks = loadedChecks
+        summary = loadedSummary
+        lastRunDate = Date()
+        loading = false
+        
+        // If no checks were found, set error message
+        if checks.isEmpty && errorMessage == nil {
+            errorMessage = "No audit results found. The script may need to be run from Terminal."
+        } else if !checks.isEmpty {
+            LastAudit.save(summary: summary, date: Date())
+        }
+    }
+    
+    var checksByCategory: [AuditCategory] {
+        let grouped = Dictionary(grouping: checks) { $0.category ?? "Other" }
+        return grouped.map { AuditCategory(name: $0.key, checks: $0.value) }
+            .sorted { $0.name < $1.name }
+    }
+    
+    var failedChecks: [AuditCheck] {
+        checks.filter { $0.status.lowercased() == "fail" }
+    }
+    
+    var warningChecks: [AuditCheck] {
+        checks.filter { $0.status.lowercased() == "warning" }
+    }
+    
+    var passedChecks: [AuditCheck] {
+        checks.filter { $0.status.lowercased() == "pass" }
+    }
+}
+
+
+/// The most recent completed audit, saved so the Dashboard can show a real
+/// score that survives relaunching the app.
+struct LastAudit {
+    let score: Int
+    let failed: Int
+    let date: Date
+
+    private static let scoreKey = "lastAuditScore"
+    private static let failedKey = "lastAuditFailed"
+    private static let dateKey = "lastAuditDate"
+
+    static func save(summary: AuditSummary, date: Date) {
+        let defaults = UserDefaults.standard
+        defaults.set(summary.score, forKey: scoreKey)
+        defaults.set(summary.failed, forKey: failedKey)
+        defaults.set(date, forKey: dateKey)
+    }
+
+    static func load() -> LastAudit? {
+        let defaults = UserDefaults.standard
+        guard let date = defaults.object(forKey: dateKey) as? Date else { return nil }
+        return LastAudit(score: defaults.integer(forKey: scoreKey),
+                         failed: defaults.integer(forKey: failedKey),
+                         date: date)
+    }
+}

@@ -1,0 +1,87 @@
+name: CERBERUS Unified Security Suite CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-suite-and-web:
+    name: Unified Schemas & Web Portal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify unified monorepo & shared schemas
+        run: ./cerberus.sh --verify
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  linux-guardian:
+    name: LinuxGuardianWatchdog (Ubuntu 22.04)
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: LinuxGuardianWatchdog
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-gi gir1.2-gtk-4.0 gir1.2-adw-1 xvfb shellcheck
+      - name: Run shell test suites
+        run: |
+          for t in tests/test_*.sh; do bash "$t"; done
+      - name: Run Python tests
+        run: |
+          python3 -m venv --system-site-packages .venv
+          .venv/bin/pip install -r requirements-dev.txt
+          cd LinuxGuardianSuiteUI && xvfb-run -a ../.venv/bin/python -m pytest tests -q
+
+  mac-guardian:
+    name: MacGuardianWatchdog (macOS 14)
+    runs-on: macos-14
+    defaults:
+      run:
+        working-directory: MacGuardianWatchdog
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify shell & Python syntax and security/self-check suites
+        run: |
+          bash -n install.sh uninstall.sh mac_suite.sh MacGuardianSuiteUI/build_app.sh
+          while read -r script; do
+            head -1 "$script" | grep -q 'env bats' && continue
+            bash -n "$script"
+          done < <(find MacGuardianSuite -name "*.sh" -type f)
+          while read -r pyscript; do
+            python3 -m py_compile "$pyscript"
+          done < <(find MacGuardianSuite -name "*.py" -type f)
+          bash MacGuardianSuite/tests/test_self_check.sh
+          cd MacGuardianSuite/tests && bash security/test_input_injection.sh
+
+  windows-guardian:
+    name: WindowsGuardianWatchdog (Windows .NET 8)
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: WindowsGuardianWatchdog
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Restore & Build WindowsGuardianWatchdog
+        run: |
+          dotnet restore WindowsGuardianWatchdog.csproj
+          dotnet build WindowsGuardianWatchdog.csproj --configuration Release --no-restore

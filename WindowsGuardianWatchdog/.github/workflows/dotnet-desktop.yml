@@ -1,0 +1,30 @@
+name: Windows desktop build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore
+        run: dotnet restore WindowsGuardianWatchdog.csproj -p:Platform=x64
+      - name: Build release
+        run: dotnet build WindowsGuardianWatchdog.csproj -c Release -p:Platform=x64 --no-restore
+      - name: Upload release build
+        uses: actions/upload-artifact@v4
+        with:
+          name: WindowsGuardianWatchdog-win-x64
+          path: bin/x64/Release/net8.0-windows10.0.19041.0/win-x64/
+          if-no-files-found: error

@@ -6,7 +6,17 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 
 export default tseslint.config(
-  { ignores: ["dist", "playwright-report", "test-results", "node_modules"] },
+  {
+    ignores: [
+      "dist",
+      "playwright-report",
+      "test-results",
+      "node_modules",
+      "WindowsGuardianWatchdog",
+      "LinuxGuardianWatchdog",
+      "MacGuardianWatchdog",
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

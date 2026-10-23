@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- File System Access -->
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+    
+    <!-- Network Access -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.network.server</key>
+    <true/>
+    
+    <!-- System Access -->
+    <key>com.apple.security.inherit</key>
+    <true/>
+    
+    <!-- Notifications -->
+    <key>com.apple.developer.usernotifications</key>
+    <true/>
+    
+    <!-- Hardened Runtime -->
+    <key>com.apple.security.cs.allow-jit</key>
+    <false/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <false/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <false/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <false/>
+    <key>com.apple.security.cs.disable-executable-page-protection</key>
+    <false/>
+    <key>com.apple.security.cs.require-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.runtime</key>
+    <true/>
+    
+    <!-- App Sandbox (for daemons) -->
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+    
+    <!-- Allow outgoing network connections -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    
+    <!-- Allow incoming network connections (localhost only) -->
+    <key>com.apple.security.network.server</key>
+    <true/>
+</dict>
+</plist>
+

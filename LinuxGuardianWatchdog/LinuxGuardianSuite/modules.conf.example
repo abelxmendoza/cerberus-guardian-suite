@@ -1,0 +1,11 @@
+# Copy to ~/.linuxguardian/config and edit as needed.
+# Sourced as a bash file by config.sh, so use normal shell variable syntax.
+
+# Directories to include in the file-integrity baseline (space-separated).
+# LG_MONITORED_DIRS_DEFAULT="$HOME/Documents $HOME/Projects"
+
+# Regex for ClamAV --exclude-dir during a quick scan (caches, git, SDKs).
+# LG_CLAM_EXCLUDE_DIRS_QUICK='^/sys|^/proc|^/dev|/\.cache($|/)|/nvidia/nvidia_sdk|/PX4-Autopilot'
+
+# Override where local state is kept.
+# LG_HOME="$HOME/.linuxguardian"

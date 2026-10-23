@@ -1,0 +1,125 @@
+# IDS Correlation Rules
+# Rules for detecting suspicious activity patterns
+
+rules:
+  # Rule 1: Multiple suspicious activities simultaneously
+  - name: "Multiple Suspicious Activities"
+    description: "File changes + new process + network connection detected simultaneously"
+    severity: critical
+    conditions:
+      - type: filesystem
+        count: "> 0"
+      - type: process
+        severity: high
+        count: "> 0"
+      - type: network
+        count: "> 0"
+    time_window: 60  # seconds
+    action: create_incident
+
+  # Rule 2: High CPU + Suspicious IP
+  - name: "High CPU with Malicious IP"
+    description: "High CPU process connecting to known malicious IP"
+    severity: high
+    conditions:
+      - type: process
+        cpu_percent: "> 80"
+      - type: network
+        threat_source: present
+    time_window: 30
+    action: create_incident
+
+  # Rule 3: Mass file changes (ransomware indicator)
+  - name: "Mass File Changes"
+    description: "Large number of file changes in short time - possible ransomware"
+    severity: critical
+    conditions:
+      - type: filesystem
+        count: "> 50"
+    time_window: 60
+    action: create_incident
+
+  # Rule 4: New process + Network to unknown IP
+  - name: "New Process with Unknown Connection"
+    description: "New process making network connection to unknown IP"
+    severity: medium
+    conditions:
+      - type: process
+        new: true
+      - type: network
+        remote_ip: unknown
+    time_window: 10
+    action: alert
+
+  # Rule 5: SSH key change + Failed login
+  - name: "SSH Compromise Indicator"
+    description: "SSH key changed and failed login attempts detected"
+    severity: critical
+    conditions:
+      - type: ssh
+        key_changed: true
+      - type: ssh
+        failed_logins: "> 0"
+    time_window: 300
+    action: create_incident
+
+  # Rule 6: SSH key change + New admin account
+  - name: "SSH Key Change + New Admin"
+    description: "SSH key changed and new admin account created"
+    severity: critical
+    conditions:
+      - type: ssh
+        key_changed: true
+      - type: user_account
+        admin_added: true
+    time_window: 600
+    action: create_incident
+
+  # Rule 7: New LaunchDaemon + Cron change
+  - name: "Persistence Mechanism Change"
+    description: "New LaunchDaemon and cron modification detected"
+    severity: high
+    conditions:
+      - type: process
+        launchdaemon: true
+      - type: cron
+        modified: true
+    time_window: 300
+    action: create_incident
+
+  # Rule 8: High network activity + Unknown IP
+  - name: "High Network Activity + Unknown IP"
+    description: "High network activity to unknown IP addresses"
+    severity: medium
+    conditions:
+      - type: network
+        connection_count: "> 10"
+      - type: network
+        unknown_ip: true
+    time_window: 60
+    action: alert
+
+  # Rule 9: FSEvents spike + Unknown process
+  - name: "File System Spike + Unknown Process"
+    description: "File system activity spike with unknown process"
+    severity: high
+    conditions:
+      - type: filesystem
+        count: "> 20"
+      - type: process
+        unknown: true
+    time_window: 30
+    action: create_incident
+
+  # Rule 10: User account change + Cron modification
+  - name: "Account Change + Cron Modification"
+    description: "User account change and cron modification"
+    severity: high
+    conditions:
+      - type: user_account
+        change: true
+      - type: cron
+        modified: true
+    time_window: 300
+    action: create_incident
+

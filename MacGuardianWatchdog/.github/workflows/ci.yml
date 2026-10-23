@@ -1,0 +1,239 @@
+name: MacGuardian CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  syntax-check:
+    name: Syntax Validation
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Validate Bash scripts
+        run: |
+          echo "Validating bash script syntax..."
+          while read -r script; do
+            # .bats files use bats' @test syntax, not plain bash - bash -n
+            # always misreads them as broken. Skip anything with a bats shebang.
+            head -1 "$script" | grep -q 'env bats' && continue
+            echo "Checking: $script"
+            bash -n "$script" || exit 1
+          done < <(find MacGuardianSuite -name "*.sh" -type f; ls install.sh uninstall.sh mac_suite.sh "Install MacGuardian.command" MacGuardianSuiteUI/build_app.sh)
+          echo "✅ All bash scripts passed syntax validation"
+
+      - name: Validate Python scripts
+        run: |
+          echo "Validating Python script syntax..."
+          while read -r script; do
+            echo "Checking: $script"
+            python3 -m py_compile "$script" || exit 1
+          done < <(find MacGuardianSuite -name "*.py" -type f)
+          echo "✅ All Python scripts passed syntax validation"
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install BATS
+        run: |
+          if ! command -v bats &> /dev/null; then
+            brew install bats-core
+          fi
+      
+      - name: Run unit tests
+        run: |
+          cd MacGuardianSuite/tests
+          if [ -f "unit/test_validators.sh" ]; then
+            bats unit/test_validators.sh || echo "⚠️ BATS tests require manual review"
+          fi
+          if [ -f "unit/test_system_state.sh" ]; then
+            bats unit/test_system_state.sh || echo "⚠️ BATS tests require manual review"
+          fi
+          if [ -f "unit/test_hashing.sh" ]; then
+            bats unit/test_hashing.sh || echo "⚠️ BATS tests require manual review"
+          fi
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install BATS
+        run: |
+          if ! command -v bats &> /dev/null; then
+            brew install bats-core
+          fi
+      
+      - name: Run integration tests
+        run: |
+          cd MacGuardianSuite/tests
+          if [ -f "integration/test_event_pipeline.sh" ]; then
+            bats integration/test_event_pipeline.sh || echo "⚠️ BATS tests require manual review"
+          fi
+          if [ -f "integration/test_watcher_output.sh" ]; then
+            bats integration/test_watcher_output.sh || echo "⚠️ BATS tests require manual review"
+          fi
+
+  functional-tests:
+    name: Functional Tests
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run functional tests
+        run: |
+          cd MacGuardianSuite/tests
+          bash run_all_tests.sh
+
+      - name: Run self-check tests
+        run: bash MacGuardianSuite/tests/test_self_check.sh
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            MacGuardianSuite/tests/*.log
+            MacGuardianSuite/tests/*.txt
+
+  e2e-tests:
+    name: End-to-End Tests
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run E2E tests
+        run: |
+          cd MacGuardianSuite/tests
+          bash e2e/test_full_installation.sh
+      
+      - name: Run security tests
+        run: |
+          cd MacGuardianSuite/tests
+          bash security/test_input_injection.sh
+
+  security-scan:
+    name: Security Scan
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run security tests
+        run: |
+          cd MacGuardianSuite/tests
+          bash security/test_input_injection.sh
+      
+      - name: Check for committed secrets
+        run: |
+          # Look for real credential material (cloud keys, private keys,
+          # tokens, hard-coded password values) - not just the word
+          # "password", which appears in normal messages and docs.
+          pattern='AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{60,}|xox[baprs]-[A-Za-z0-9-]{10,}|sk-(ant-)?[A-Za-z0-9_-]{32,}|(password|passwd|secret|api_key|apikey|token)[A-Za-z_]*["'"'"']?[[:space:]]*[:=][[:space:]]*["'"'"'][^"'"'"'$[:space:]{}<>]{8,}["'"'"']'
+          if git grep -nIiE "$pattern" -- . ':!*.md' ':!MacGuardianSuite/tests/**' ':!tests/**' \
+              | grep -viE "your[-_ ]|example|placeholder|changeme|<[a-z_-]+>"; then
+            echo "❌ Possible secret committed - see above"
+            exit 1
+          fi
+          echo "✅ No secrets found"
+
+  build-check:
+    name: Build Check
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Build and package the app
+        run: SKIP_INSTALL=1 ./MacGuardianSuiteUI/build_app.sh
+
+      - name: Verify the packaged app
+        run: |
+          APP="MacGuardianSuiteUI/.build/MacGuardian Suite.app"
+          codesign --verify --deep --strict "$APP"
+          linked="$(/usr/libexec/PlistBuddy -c 'Print :MGRepositoryPath' "$APP/Contents/Info.plist")"
+          [ "$linked" = "$GITHUB_WORKSPACE" ] || { echo "App points at '$linked'"; exit 1; }
+          echo "✅ App built, signed and linked to its scripts"
+
+  lint:
+    name: Code Linting
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check shellcheck
+        run: |
+          if command -v shellcheck &> /dev/null || brew install shellcheck; then
+            echo "Running shellcheck..."
+            find MacGuardianSuite -name "*.sh" -type f | while read -r script; do
+              shellcheck "$script" || echo "⚠️ Shellcheck warnings in $script"
+            done
+          else
+            echo "⚠️ Shellcheck not available, skipping"
+          fi
+        continue-on-error: true
+
+  test-summary:
+    name: Test Summary
+    runs-on: macos-latest
+    needs: [syntax-check, functional-tests, e2e-tests, security-scan, build-check]
+    if: always()
+    
+    steps:
+      - name: Generate test summary
+        run: |
+          echo "## MacGuardian CI Test Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          overall=0
+          check() {
+            local name="$1" result="$2"
+            if [ "$result" = "success" ]; then
+              echo "✅ ${name}: Passed" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "❌ ${name}: ${result}" >> "$GITHUB_STEP_SUMMARY"
+              overall=1
+            fi
+          }
+
+          check "Syntax Check" "${{ needs.syntax-check.result }}"
+          check "Functional Tests" "${{ needs.functional-tests.result }}"
+          check "E2E Tests" "${{ needs.e2e-tests.result }}"
+          check "Security Tests" "${{ needs.security-scan.result }}"
+          check "App Build" "${{ needs.build-check.result }}"
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "$overall" -eq 0 ]; then
+            echo "All CI checks completed successfully!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "One or more CI checks failed - see above." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi

@@ -1,0 +1,100 @@
+# MacGuardian Watchdog Theme for Starship
+# Omega Technologies - Dark Cyberpunk Aesthetic
+# Install: starship preset toml -o ~/.config/starship.toml
+
+# Format strings
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$character
+"""
+
+# Username
+[username]
+style_user = "bold #8A2BE2"  # Electric purple
+style_root = "bold #FF0044"  # Neon red
+format = "[$user]($style) "
+disabled = false
+show_always = false
+
+# Hostname
+[hostname]
+ssh_only = false
+format = "[@$hostname]($style) "
+style = "bold #8A2BE2"  # Electric purple
+disabled = false
+
+# Directory
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+format = "[$path]($style) "
+style = "dim #808080"  # Dim gray
+read_only = " 🔒"
+read_only_style = "#FF0044"  # Neon red
+
+# Git Branch
+[git_branch]
+symbol = "🌿 "
+style = "bold #8A2BE2"  # Electric purple
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+# Git State
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bold #FF0044"  # Neon red
+
+# Git Status
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold #8A2BE2"  # Electric purple
+conflicted = "⚡"
+up_to_date = "●"
+untracked = "●"
+ahead = "⇡${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+behind = "⇣${count}"
+stashed = "📦"
+modified = "●"
+staged = "●"
+renamed = "●"
+deleted = "●"
+
+# Command Duration
+[cmd_duration]
+min_time = 2_000
+format = "took [$duration]($style) "
+style = "bold #8A2BE2"  # Electric purple
+show_milliseconds = false
+
+# Line Break
+[line_break]
+disabled = false
+
+# Character (Prompt)
+[character]
+success_symbol = "[>](bold #FF0044)"  # Neon red
+error_symbol = "[✗](bold #FF0044)"     # Neon red
+vimcmd_symbol = "[V](bold #8A2BE2)"    # Electric purple
+
+# Time (optional, add to format if desired)
+[time]
+disabled = true
+format = "[$time]($style) "
+style = "bold #8A2BE2"  # Electric purple
+use_12hr = false
+
+# Custom: Omega Technologies Header
+# Add this to your starship init script or .zshrc
+# echo "╔════════════════════════════════════════════════════════════╗"
+# echo "║                                                            ║"
+# echo "║    Ω-Technologies // MacGuardian Watchdog                 ║"
+# echo "║                                                            ║"
+# echo "╚════════════════════════════════════════════════════════════╝"
+

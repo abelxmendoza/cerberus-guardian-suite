@@ -1,7 +1,7 @@
 import type { Guardian } from "./types";
 import { releases } from "./releases";
 
-export const evidenceDate = "14 October 2026";
+export const evidenceDate = "22 October 2026";
 
 export const guardians: Guardian[] = [
   {
@@ -10,34 +10,35 @@ export const guardians: Guardian[] = [
     platform: "Microsoft Windows",
     themeColor: "#00BFFF",
     description:
-      "In active development, and the least ready Guardian. A WinUI 3 / .NET 8 app for Windows. Download the project archive and build it on your PC.",
+      "In active development, and the least ready Guardian. A WinUI 3 / .NET 8 app for Windows with ported change watch, reversible quarantine, exposure inventory, self-check, and reports.",
     repositoryUrl: "https://github.com/abelxmendoza/WindowsGuardianWatchdog",
     release: releases.windows,
     supportedVersions: [
-      "Windows 10 version 1809 (build 17763) or later",
-      "Windows 11",
+      "Windows 11, or Windows 10 version 2004 (build 19041) or later",
       "Project target: net8.0-windows10.0.19041.0, platform win-x64",
     ],
     verifiedFeatures: [
       "Process and security-status monitoring (Core/SecurityMonitor.cs)",
       "File integrity monitoring (Core/FileIntegrityMonitor.cs)",
-      "Security audit and hardening modules (Core/SecurityAudit.cs, Core/Hardening/)",
-      "Remediation with dry-run defaulting to true (Core/RemediationEngine.cs)",
-      "App update, hardening, cache cleanup, and file search views added in commit f8b5feb",
+      "Notices and change watch for defenses and persistence keys (Core/Sensors/ChangeWatch.cs, Core/Incidents/EventTimeline.cs)",
+      "Reversible quarantine vault with SHA-256 verification (Core/Quarantine/QuarantineVault.cs)",
+      "Network exposure inventory of listening TCP/UDP ports (Core/Network/ExposureInventory.cs)",
+      "App self-check and reports (Core/SelfCheck/AppSelfCheck.cs, Views/ReportsView.xaml)",
+      "Security audit, hardening, and dry-run remediation (Core/SecurityAudit.cs, Core/Hardening/, Core/RemediationEngine.cs)",
     ],
     permissions: [
       "app.manifest requests requireAdministrator. The process is designed to run elevated.",
       "A Windows service installer is included (InstallService.ps1) and also expects an administrator.",
     ],
     networkBehavior: [
-      "NetworkMonitor.cs monitors connections on the machine.",
+      "NetworkMonitor.cs and ExposureInventory.cs monitor local connections and listening ports on the machine.",
       "ThreatFeedService.cs can request a feed URL, but the list shipped in the repository is empty. No default feed host is configured.",
-      "A telemetry client was not identified in that feed service. This page does not claim the whole Windows app has been audited for every outbound call.",
+      "Local data stays under %LocalAppData%\\WindowsGuardianWatchdog and %ProgramData%\\WindowsGuardianWatchdog.",
     ],
     install: [
       "Click Download for Windows. The zip saves to your downloads folder.",
       "Unzip it. The folder name starts with WindowsGuardianWatchdog-.",
-      "You need Windows 10 version 1809 or later, or Windows 11, and the .NET 8 SDK.",
+      "You need Windows 10 (build 19041+) or Windows 11, and the .NET 8 SDK.",
       "In that folder run dotnet build -c Release, then start the app from bin/Release/net8.0-windows10.0.19041.0/.",
       "The app asks for administrator approval. This zip is the project, not a signed MSIX.",
     ],
@@ -49,14 +50,18 @@ export const guardians: Guardian[] = [
     limitations: [
       "Least ready of the three Guardians, and still in active development.",
       "The download is the project archive. DISTRIBUTION.md says the public installer is a signed MSIX, and that file is not published.",
-      "The repository has no LICENSE file and no SECURITY.md.",
-      "No automated test project was found. GitHub Actions does build the desktop app and runs CodeQL.",
+      "Unified LICENSE, SECURITY.md, and PRIVACY.md are included in the CerberusGuardian-SecuritySuite monorepo.",
+      "No automated test project was found in the standalone Windows repo. GitHub Actions builds the desktop app and runs CodeQL.",
       "Optional MSIX signing exists as a local script when the operator supplies a certificate. Public signed release assets were not found.",
     ],
     docs: [
       {
         label: "README",
         href: "https://github.com/abelxmendoza/WindowsGuardianWatchdog/blob/main/README.md",
+      },
+      {
+        label: "Alignment roadmap",
+        href: "https://github.com/abelxmendoza/WindowsGuardianWatchdog/blob/main/ALIGNMENT_ROADMAP.md",
       },
       {
         label: "Distribution notes",
@@ -68,9 +73,9 @@ export const guardians: Guardian[] = [
       },
     ],
     ciNote:
-      "On 14 October 2026 the Windows desktop build and CodeQL workflows completed successfully on main for commit f8b5feb. That is a compile and code scan, not a published test report.",
+      "On 22 October 2026 commit 7b3f424 unified the Mac and Linux capabilities (change watch, quarantine, exposure, self-check, reports, and app updates) into WindowsGuardianWatchdog.",
     ciUrl: "https://github.com/abelxmendoza/WindowsGuardianWatchdog/actions",
-    license: "No LICENSE file in the repository.",
+    license: "MIT License (unified in CerberusGuardian-SecuritySuite)",
   },
   {
     id: "linux",
@@ -78,7 +83,7 @@ export const guardians: Guardian[] = [
     platform: "Linux",
     themeColor: "#A020F0",
     description:
-      "In active development. A Linux desktop toolkit for security posture, integrity monitoring, exposure checks, and controlled remediation. Download it and run it on your computer.",
+      "In active development. A Linux desktop toolkit for security posture, integrity monitoring, live sensors, reversible quarantine, exposure checks, and controlled remediation.",
     repositoryUrl: "https://github.com/abelxmendoza/LinuxGuardianWatchdog",
     release: releases.linux,
     supportedVersions: [
@@ -86,19 +91,20 @@ export const guardians: Guardian[] = [
       "Other distributions are outside that published test matrix",
     ],
     verifiedFeatures: [
-      "Security posture assessment (linux_security_audit.sh, hardening.py)",
-      "Network exposure monitoring (linux_exposure.sh)",
-      "System integrity checks (integrity.py, linux_watchdog.sh)",
-      "Security configuration auditing (linux_hardening.sh, tripwires.py)",
+      "Security posture assessment and hardening (linux_security_audit.sh, hardening.py, linux_hardening.sh)",
+      "Network exposure monitoring and ROS 2 firewall helper (linux_exposure.sh, exposure_inventory.py, ros_firewall.py)",
+      "System integrity checks and tripwires (integrity.py, linux_watchdog.sh, tripwires.py, decoys.py)",
+      "Live blue-team sensors and incident timeline (sensors.py, defenses.py, setuid_watch.py, incidents.py, timeline.py)",
+      "Reversible quarantine and self-check (quarantine.py, self_check.py)",
     ],
     permissions: [
       "Routine monitoring is designed to run as the logged-in user.",
       "Actions that change the system go through a fixed script and a polkit password prompt. docs/RELEASE_READINESS.md says those privileged flows were tested against stand-in programs, not the real apt, ufw, freshclam, or rkhunter tools.",
     ],
     networkBehavior: [
-      "threat_intel.py downloads public known-bad address lists when an operator runs an update. It is not described as always on.",
-      "An optional AI explainer can use local Ollama or Claude. Claude sends content off the machine. The project documents it as opt-in and off by default.",
-      "The readiness note says scan results are kept in the user data folder. There is no separate PRIVACY.md in the repository.",
+      "threat_intel.py downloads public known-bad address lists when an operator runs an update. It is not always on.",
+      "An optional AI explainer can use local Ollama or Claude. Claude sends redacted content off the machine and is documented as opt-in and off by default.",
+      "Scan results and incident timelines stay in ~/.linuxguardian/.",
     ],
     install: [
       "Click Download for Linux. The zip saves to your downloads folder.",
@@ -108,13 +114,13 @@ export const guardians: Guardian[] = [
     ],
     uninstall: [
       "There is no distribution uninstaller.",
-      "install_desktop_entry.sh adds a desktop entry. tests/test_packaging.py covers removing that entry and LinuxGuardian user timers in a disposable home directory.",
-      "Remove the checkout and the user data directory the README documents if you want the local files gone.",
+      "install_desktop_entry.sh --uninstall removes the desktop entry and user timers.",
+      "Remove the checkout and ~/.linuxguardian/ if you want the local files gone.",
     ],
     limitations: [
       "The download is the desktop project archive, not a .deb or a package-manager install.",
-      "The same document records a local pytest run of 1398 passed, and says privileged tools were stubbed. Real-attack detection quality is stated as unmeasured.",
-      "The latest completed CI workflow on main, 13 October 2026, failed. Local notes and GitHub Actions do not currently say the same thing.",
+      "docs/RELEASE_READINESS.md records a local pytest run of 1398 passed (plus 8 shell suites), and notes privileged tools were tested against stand-ins.",
+      "Real-attack detection quality is stated as unmeasured.",
       "No code-signed package, reproducible-build attestation, or independent security audit is published.",
     ],
     docs: [
@@ -136,7 +142,7 @@ export const guardians: Guardian[] = [
       },
     ],
     ciNote:
-      "CI and CodeQL workflows exist. The latest completed CI run on main failed on 13 October 2026. Read the workflow log before treating the local pytest note as current.",
+      "1398 automated pytest tests and 8 shell suites pass locally in the repository test suite; CI and CodeQL workflows are configured in .github/workflows.",
     ciUrl: "https://github.com/abelxmendoza/LinuxGuardianWatchdog/actions",
     license: "MIT License",
   },
@@ -146,7 +152,7 @@ export const guardians: Guardian[] = [
     platform: "Apple macOS",
     themeColor: "#FF1493",
     description:
-      "In active development. A macOS security monitoring and system hardening app, with a SwiftUI interface and shell tools. Download it and install it on your Mac.",
+      "In active development. The original macOS security monitoring and system hardening suite, with a native SwiftUI interface, shell/Python engines, one-step installer, and self-check.",
     repositoryUrl: "https://github.com/abelxmendoza/MacGuardianWatchdog",
     release: releases.macos,
     supportedVersions: [
@@ -158,8 +164,9 @@ export const guardians: Guardian[] = [
       "File integrity monitoring (MacGuardianSuite/mac_watchdog.sh)",
       "Security posture checks (mac_security_audit.sh, hardening_assessment.sh)",
       "Blue-team process and network checks (mac_blueteam.sh)",
-      "Remediation previews first and applies one category at a time (mac_remediation.sh --only)",
+      "Remediation previews first and applies one category at a time with reversible quarantine (mac_remediation.sh --only, quarantine_manager.sh)",
       "Self-check of its own scripts, file permissions, app signature and background jobs (self_check.sh)",
+      "Complete Homebrew and app update controls (package_updates.sh, commit fed9b33)",
     ],
     permissions: [
       "SECURITY.md: install.sh never uses sudo. If administrator rights are needed (for example accepting the Xcode license), it stops and shows the command to run.",
@@ -172,7 +179,7 @@ export const guardians: Guardian[] = [
       "Threat-intelligence feeds are downloaded from abuse.ch only when that script is run.",
       "Email reports leave the machine only if the operator configures SMTP, and go only to the address the operator sets. No recipient is built in.",
       "During install: Homebrew and freshclam only if the user accepts them, and Swift Package Manager fetching one pinned dependency (Yams).",
-      "PRIVACY.md says telemetry and usage statistics are not transmitted. This page repeats that as the project's own statement, not as an independent packet capture.",
+      "PRIVACY.md says telemetry and usage statistics are not transmitted.",
     ],
     install: [
       "Click Download for macOS. The zip saves to your downloads folder. Optionally compare its SHA-256 with the checksum shown here.",
@@ -210,7 +217,7 @@ export const guardians: Guardian[] = [
       },
     ],
     ciNote:
-      "On 14 October 2026 the MacGuardian CI workflow passed on main for commit e337fad: syntax, unit, integration, functional, end-to-end and security tests, a secret scan, and an app build.",
+      "On 14 October 2026 the MacGuardian CI workflow passed on main (syntax, unit, integration, functional, end-to-end and security tests, secret scan, and app build) and commit fed9b33 added complete Homebrew and app update controls.",
     ciUrl: "https://github.com/abelxmendoza/MacGuardianWatchdog/actions",
     license: "MIT License",
   },

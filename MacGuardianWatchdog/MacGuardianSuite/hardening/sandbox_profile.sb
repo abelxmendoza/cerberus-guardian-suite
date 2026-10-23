@@ -1,0 +1,62 @@
+(version 1)
+(deny default)
+
+; ===============================
+; MacGuardian Watchdog Sandbox Profile
+; Production-grade sandboxing for security
+; ===============================
+
+; Allow reading from installation directory
+(allow file-read* (subpath "/usr/local/macguardian"))
+(allow file-read* (subpath "/usr/local/bin"))
+(allow file-read* (subpath "/usr/bin"))
+(allow file-read* (subpath "/bin"))
+
+; Allow reading from user's home directory (for config and logs)
+(allow file-read* (subpath (param "HOME")))
+(allow file-read* (subpath (param "HOME") "/.macguardian"))
+
+; Allow writing to user's MacGuardian directory only
+(allow file-write* (subpath (param "HOME") "/.macguardian/logs"))
+(allow file-write* (subpath (param "HOME") "/.macguardian/events"))
+(allow file-write* (subpath (param "HOME") "/.macguardian/baselines"))
+
+; Allow reading system information (read-only)
+(allow file-read* (subpath "/System/Library"))
+(allow file-read* (subpath "/Library"))
+
+; Allow network client (for WebSocket server)
+(allow network-outbound (local ip))
+(allow network-outbound (remote ip))
+
+; Allow Unix Domain Socket
+(allow network-outbound (socket-address (path "/tmp/macguardian.sock")))
+
+; Allow process information (read-only)
+(allow process-info)
+
+; Deny subprocess execution except whitelisted binaries
+(deny process-exec*)
+(allow process-exec (literal "/bin/bash"))
+(allow process-exec (literal "/usr/bin/python3"))
+(allow process-exec (literal "/usr/bin/osascript"))
+(allow process-exec (subpath "/usr/local/macguardian"))
+
+; Deny file system writes outside allowed paths
+(deny file-write* (subpath "/"))
+(allow file-write* (subpath (param "HOME") "/.macguardian"))
+
+; Deny network egress except localhost
+(deny network-outbound (remote ip))
+
+; Allow reading common system files
+(allow file-read* (literal "/etc/passwd"))
+(allow file-read* (literal "/etc/group"))
+(allow file-read* (literal "/etc/hosts"))
+
+; Allow reading launchd plists (read-only)
+(allow file-read* (subpath (param "HOME") "/Library/LaunchAgents"))
+
+; Deny everything else
+(deny default)
+

@@ -1,7 +1,7 @@
 {
-  "name": "cerberus-guardian-suite",
+  "name": "cerberus-guardian-security-suite",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit --pretty false",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "verify:suite": "./cerberus.sh --verify"
   },
   "dependencies": {
     "framer-motion": "^12.23.22",

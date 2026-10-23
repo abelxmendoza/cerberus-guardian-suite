@@ -1,0 +1,188 @@
+{
+  "name": "MacGuardian Watchdog - Omega Technologies",
+  "description": "Dark cyberpunk theme for intrusion detection console",
+  "author": "Omega Technologies",
+  "colors": {
+    "background": "#000000",
+    "foreground": "#808080",
+    "cursor": "#00FFFF",
+    "cursorText": "#000000",
+    "selection": "#00FFFF33",
+    "selectionText": "#FFFFFF",
+    "black": "#000000",
+    "red": "#FF0044",
+    "green": "#00FF00",
+    "yellow": "#FFFF00",
+    "blue": "#0000FF",
+    "magenta": "#8A2BE2",
+    "cyan": "#00FFFF",
+    "white": "#FFFFFF",
+    "brightBlack": "#404040",
+    "brightRed": "#FF0044",
+    "brightGreen": "#00FF00",
+    "brightYellow": "#FFFF00",
+    "brightBlue": "#0000FF",
+    "brightMagenta": "#8A2BE2",
+    "brightCyan": "#00FFFF",
+    "brightWhite": "#FFFFFF",
+    "primary": "#8A2BE2",
+    "secondary": "#FF0044",
+    "accent": "#00FFFF",
+    "text": "#808080",
+    "backgroundNoise": "#0A0A0A"
+  },
+  "macguardian": {
+    "electricPurple": "#8A2BE2",
+    "neonRed": "#FF0044",
+    "cyanGlow": "#00FFFF",
+    "dimGray": "#808080",
+    "deepBlack": "#000000"
+  },
+  "iterm2": {
+    "Ansi 0 Color": {
+      "Red": 0,
+      "Green": 0,
+      "Blue": 0
+    },
+    "Ansi 1 Color": {
+      "Red": 1.0,
+      "Green": 0.0,
+      "Blue": 0.26666666666666666
+    },
+    "Ansi 2 Color": {
+      "Red": 0.0,
+      "Green": 1.0,
+      "Blue": 0.0
+    },
+    "Ansi 3 Color": {
+      "Red": 1.0,
+      "Green": 1.0,
+      "Blue": 0.0
+    },
+    "Ansi 4 Color": {
+      "Red": 0.0,
+      "Green": 0.0,
+      "Blue": 1.0
+    },
+    "Ansi 5 Color": {
+      "Red": 0.5411764705882353,
+      "Green": 0.16862745098039217,
+      "Blue": 0.8862745098039215
+    },
+    "Ansi 6 Color": {
+      "Red": 0.0,
+      "Green": 1.0,
+      "Blue": 1.0
+    },
+    "Ansi 7 Color": {
+      "Red": 0.5,
+      "Green": 0.5,
+      "Blue": 0.5
+    },
+    "Ansi 8 Color": {
+      "Red": 0.25,
+      "Green": 0.25,
+      "Blue": 0.25
+    },
+    "Ansi 9 Color": {
+      "Red": 1.0,
+      "Green": 0.0,
+      "Blue": 0.26666666666666666
+    },
+    "Ansi 10 Color": {
+      "Red": 0.0,
+      "Green": 1.0,
+      "Blue": 0.0
+    },
+    "Ansi 11 Color": {
+      "Red": 1.0,
+      "Green": 1.0,
+      "Blue": 0.0
+    },
+    "Ansi 12 Color": {
+      "Red": 0.0,
+      "Green": 0.0,
+      "Blue": 1.0
+    },
+    "Ansi 13 Color": {
+      "Red": 0.5411764705882353,
+      "Green": 0.16862745098039217,
+      "Blue": 0.8862745098039215
+    },
+    "Ansi 14 Color": {
+      "Red": 0.0,
+      "Green": 1.0,
+      "Blue": 1.0
+    },
+    "Ansi 15 Color": {
+      "Red": 1.0,
+      "Green": 1.0,
+      "Blue": 1.0
+    },
+    "Background Color": {
+      "Red": 0.0,
+      "Green": 0.0,
+      "Blue": 0.0
+    },
+    "Foreground Color": {
+      "Red": 0.5,
+      "Green": 0.5,
+      "Blue": 0.5
+    },
+    "Cursor Color": {
+      "Red": 0.0,
+      "Green": 1.0,
+      "Blue": 1.0
+    },
+    "Cursor Text Color": {
+      "Red": 0.0,
+      "Green": 0.0,
+      "Blue": 0.0
+    },
+    "Selection Color": {
+      "Red": 0.0,
+      "Green": 1.0,
+      "Blue": 1.0,
+      "Alpha": 0.2
+    },
+    "Selected Text Color": {
+      "Red": 1.0,
+      "Green": 1.0,
+      "Blue": 1.0
+    }
+  },
+  "vscode": {
+    "workbench.colorCustomizations": {
+      "terminal.background": "#000000",
+      "terminal.foreground": "#808080",
+      "terminalCursor.background": "#000000",
+      "terminalCursor.foreground": "#00FFFF",
+      "terminal.selectionBackground": "#00FFFF33",
+      "terminal.ansiBlack": "#000000",
+      "terminal.ansiRed": "#FF0044",
+      "terminal.ansiGreen": "#00FF00",
+      "terminal.ansiYellow": "#FFFF00",
+      "terminal.ansiBlue": "#0000FF",
+      "terminal.ansiMagenta": "#8A2BE2",
+      "terminal.ansiCyan": "#00FFFF",
+      "terminal.ansiWhite": "#FFFFFF",
+      "terminal.ansiBrightBlack": "#404040",
+      "terminal.ansiBrightRed": "#FF0044",
+      "terminal.ansiBrightGreen": "#00FF00",
+      "terminal.ansiBrightYellow": "#FFFF00",
+      "terminal.ansiBrightBlue": "#0000FF",
+      "terminal.ansiBrightMagenta": "#8A2BE2",
+      "terminal.ansiBrightCyan": "#00FFFF",
+      "terminal.ansiBrightWhite": "#FFFFFF"
+    },
+    "editor.tokenColorCustomizations": {
+      "comments": "#808080",
+      "keywords": "#8A2BE2",
+      "strings": "#00FFFF",
+      "numbers": "#FF0044",
+      "functions": "#8A2BE2",
+      "variables": "#00FFFF"
+    }
+  }
+}
+

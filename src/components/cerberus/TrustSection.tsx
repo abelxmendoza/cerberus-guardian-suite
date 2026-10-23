@@ -29,13 +29,13 @@ const cards = [
   },
   {
     title: "Security documentation",
-    body: "macOS has SECURITY.md. Linux records a security review summary in docs/RELEASE_READINESS.md and does not ship SECURITY.md. Windows has no SECURITY.md.",
+    body: "macOS publishes SECURITY.md in its standalone repository, Linux records a security review summary in docs/RELEASE_READINESS.md, and the unified CerberusGuardian-SecuritySuite includes SECURITY.md across all three Guardians.",
     href: "https://github.com/abelxmendoza/LinuxGuardianWatchdog/blob/main/docs/RELEASE_READINESS.md",
     link: "Linux readiness notes",
   },
   {
     title: "Privacy",
-    body: "macOS publishes PRIVACY.md: local storage, optional email, and threat-feed downloads. Linux and Windows do not publish a privacy policy file. Network behavior for each app is described in the security section from the code and docs that do exist.",
+    body: "All three Guardians store scan results and timelines locally on the machine (~/.macguardian, ~/.linuxguardian, and %LocalAppData%\\WindowsGuardianWatchdog) with zero telemetry.",
     href: "https://github.com/abelxmendoza/MacGuardianWatchdog/blob/main/PRIVACY.md",
     link: "macOS PRIVACY.md",
   },

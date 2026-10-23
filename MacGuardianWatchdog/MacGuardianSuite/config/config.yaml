@@ -1,0 +1,50 @@
+# MacGuardian Watchdog Configuration
+# Production-grade configuration file
+
+# Scan intervals (seconds)
+scan_intervals:
+  process: 5
+  network: 5
+  filesystem: 2
+
+# Alert settings
+alerts:
+  email_enabled: false
+  email_address: ""
+  webhook_enabled: false
+  webhook_url: ""
+  alert_severity: high  # low|medium|high|critical
+  
+# File Integrity Monitoring
+fim:
+  sensitivity: medium  # low|medium|high
+  baseline_path: ~/.macguardian/baseline.txt
+  
+# Intrusion Detection System
+ids:
+  ruleset: default
+  correlation_window: 60  # seconds
+  file_change_threshold: 50
+  
+# Network monitoring
+network:
+  dns_monitoring: true
+  connection_threshold: 50
+  track_arp: true
+  
+# Privacy monitoring
+privacy:
+  alert_on_new_permissions: true
+  monitor_tcc_changes: true
+  
+# SSH monitoring
+ssh:
+  alert_on_key_change: true
+  alert_on_config_change: true
+  monitor_authorized_keys: true
+  
+# Logging
+logging:
+  max_size_mb: 5
+  retention_days: 7
+  debug: false

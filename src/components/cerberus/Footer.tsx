@@ -9,8 +9,8 @@ export function Footer() {
         <p className="font-display tracking-[0.18em] text-paper">{site.name}</p>
         <p className="max-w-3xl leading-relaxed">
           {site.tagline} CERBERUS is an independent monitoring and hardening effort. It is not
-          antivirus, not endpoint protection, and not a guarantee of safety. Linux and macOS
-          repositories use the MIT License. The Windows repository has no LICENSE file.
+          antivirus, not endpoint protection, and not a guarantee of safety. All three Guardians in
+          CerberusGuardian-SecuritySuite are released under the MIT License.
         </p>
         <p>Repository evidence checked {evidenceDate}.</p>
         <ExternalLink href={site.github} className="text-accent">

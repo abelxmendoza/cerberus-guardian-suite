@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CERBERUS Security Event Specification v1.0.0",
+  "description": "Unified cross-platform event schema for CERBERUS (WindowsGuardianWatchdog, LinuxGuardianWatchdog, and MacGuardianWatchdog)",
+  "type": "object",
+  "required": ["eventSpec", "platform", "timestamp", "type", "severity"],
+  "properties": {
+    "eventSpec": {
+      "type": "string",
+      "enum": ["1.0.0"],
+      "description": "Event specification version"
+    },
+    "platform": {
+      "type": "string",
+      "enum": ["windows", "linux", "macos"],
+      "description": "Source Guardian platform"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 timestamp"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "security_audit",
+        "file_integrity",
+        "threat_detection",
+        "process_monitoring",
+        "network_analysis",
+        "network_exposure",
+        "quarantine",
+        "self_check",
+        "change_watch",
+        "ml_anomaly",
+        "alert",
+        "incident",
+        "remediation",
+        "system_health"
+      ],
+      "description": "Event type"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["incident", "finding", "information"],
+      "description": "Unified event classification across Guardians"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "warning", "medium", "low", "info"],
+      "description": "Event severity"
+    },
+    "category": {
+      "type": "string",
+      "description": "Event category"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["detected", "changed", "resolved"],
+      "default": "detected",
+      "description": "Lifecycle state of the event"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable message"
+    },
+    "data": {
+      "type": "object",
+      "description": "Platform-specific event data",
+      "additionalProperties": true
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "correlationId": {
+          "type": "string"
+        },
+        "mitreAttackId": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
