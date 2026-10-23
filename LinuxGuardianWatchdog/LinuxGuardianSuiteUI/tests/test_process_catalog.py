@@ -21,7 +21,7 @@ def test_systemd_pid1_vs_user() -> None:
 
 def test_python_script() -> None:
     assert python_script("python3 -m http.server") == "http.server"
-    assert python_script("/usr/bin/python3 /home/azrael/mux_node.py") == "/home/azrael/mux_node.py"
+    assert python_script("/usr/bin/python3 /home/user/mux_node.py") == "/home/user/mux_node.py"
 
 
 def test_ros_node() -> None:

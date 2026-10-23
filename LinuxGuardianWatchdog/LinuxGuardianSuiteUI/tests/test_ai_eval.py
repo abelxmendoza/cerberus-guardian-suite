@@ -80,7 +80,7 @@ def test_every_kind_has_enough_cases_to_mean_something():
 
 def test_scenarios_hold_no_data_from_this_machine():
     blob = json.dumps(ev.scenarios())
-    for needle in ("/home/azrael/.ssh", "ANTHROPIC", "BEGIN PRIVATE KEY"):
+    for needle in ("/home/user/.ssh", "ANTHROPIC", "BEGIN PRIVATE KEY"):
         assert needle not in blob
 
 

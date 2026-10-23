@@ -9,6 +9,7 @@ import { Hero } from "../components/cerberus/Hero";
 import { Navbar } from "../components/cerberus/Navbar";
 import { ScreenshotShowcase } from "../components/cerberus/ScreenshotShowcase";
 import { SecuritySection } from "../components/cerberus/SecuritySection";
+import { TelemetryPipelineSection } from "../components/cerberus/TelemetryPipelineSection";
 import { TrustSection } from "../components/cerberus/TrustSection";
 
 export function Cerberus() {
@@ -26,6 +27,7 @@ export function Cerberus() {
         <GuardianGrid />
         <FeatureGrid />
         <CompatibilityMatrix />
+        <TelemetryPipelineSection />
         <ScreenshotShowcase />
         <TrustSection />
         <DownloadCenter />

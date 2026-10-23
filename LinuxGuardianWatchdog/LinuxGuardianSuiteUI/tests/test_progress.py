@@ -22,7 +22,7 @@ def test_parse_progress_line() -> None:
     line = (
         "LG_PROGRESS|phase=clamav|message=Scanning files (12s elapsed)"
         "|step=1|steps=2|pct=42|done=100|total=200|eta_sec=90"
-        "|current=/home/azrael/Downloads/foo.bin"
+        "|current=/home/user/Downloads/foo.bin"
     )
     progress = parse_progress_line(line)
     assert progress is not None

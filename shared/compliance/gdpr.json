@@ -16,6 +16,6 @@
     "privacyControls": "required",
     "accessControl": "required",
     "auditLogging": "required"
-  }
+  },
+  "disclaimer": "Technical security-posture heuristic mapping only. Does NOT constitute legal, audit, or regulatory certification."
 }
-

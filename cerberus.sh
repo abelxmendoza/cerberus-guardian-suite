@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # CERBERUS — The Guardian Security Suite (CerberusGuardian-SecuritySuite)
-# Unified Cross-Platform CLI Entrypoint & Suite Verifier
+# Unified Cross-Platform CLI Entrypoint, Schema Distributor & Suite Verifier
 # ==============================================================================
 set -euo pipefail
 
@@ -30,6 +30,21 @@ detect_os() {
     esac
 }
 
+sync_schemas() {
+    python3 - "$ROOT_DIR" <<'PY'
+import pathlib, shutil, sys
+
+root = pathlib.Path(sys.argv[1])
+shared = root / "shared"
+for g in ["WindowsGuardianWatchdog", "LinuxGuardianWatchdog", "MacGuardianWatchdog"]:
+    g_shared = root / g / "shared"
+    if g_shared.exists():
+        shutil.rmtree(g_shared)
+    shutil.copytree(shared, g_shared)
+    print(f"  [\033[0;32mDISTRIBUTED\033[0m] shared/ -> {g}/shared/")
+PY
+}
+
 verify_suite() {
     banner
     echo "Verifying unified CerberusGuardian-SecuritySuite structure..."
@@ -54,7 +69,8 @@ verify_suite() {
         "MacGuardianWatchdog/MacGuardianSuite/mac_guardian.sh" \
         "MacGuardianWatchdog/MacGuardianSuite/mac_watchdog.sh" \
         "MacGuardianWatchdog/MacGuardianSuite/quarantine_manager.sh" \
-        "MacGuardianWatchdog/MacGuardianSuite/self_check.sh"; do
+        "MacGuardianWatchdog/MacGuardianSuite/self_check.sh" \
+        "shared/pipeline/normalize_and_report.py"; do
         if [[ -f "$ROOT_DIR/$path" ]]; then
             echo -e "  [${GREEN}OK${NC}] $path"
         else
@@ -75,9 +91,9 @@ verify_suite() {
         done
     done
 
-    # 3. Verify shared schemas exist and are identical across root and all 3 Guardians
+    # 3. Verify canonical root shared/ schemas are synced across all 3 Guardians + run syntax & pipeline checks
     python3 - "$ROOT_DIR" <<'PY'
-import json, pathlib, sys
+import json, pathlib, py_compile, subprocess, sys, xml.etree.ElementTree as ET
 
 root = pathlib.Path(sys.argv[1])
 schemas = [
@@ -97,18 +113,16 @@ for rel in schemas:
     for g in ["WindowsGuardianWatchdog", "LinuxGuardianWatchdog", "MacGuardianWatchdog"]:
         g_file = root / g / rel
         if not g_file.exists() or json.loads(g_file.read_text()) != data:
-            print(f"  [MISMATCH] {g}/{rel}")
+            print(f"  [MISMATCH] {g}/{rel} (run ./cerberus.sh --sync-schemas)")
             sys.exit(1)
-    print(f"  [\033[0;32mSYNCED\033[0m] {rel} (root + all 3 Guardians)")
-
-import py_compile, subprocess, xml.etree.ElementTree as ET
+    print(f"  [\033[0;32mSYNCED\033[0m] {rel} (canonical root -> all 3 Guardians)")
 
 # Validate WindowsGuardianWatchdog.csproj XML structure
 ET.parse(root / "WindowsGuardianWatchdog/WindowsGuardianWatchdog.csproj")
 print("  [\033[0;32mOK\033[0m] WindowsGuardianWatchdog.csproj XML syntax verified")
 
-# Validate Python & Bash syntax across MacGuardianWatchdog and LinuxGuardianWatchdog
-for g in ["MacGuardianWatchdog/MacGuardianSuite", "LinuxGuardianWatchdog/LinuxGuardianSuite", "LinuxGuardianWatchdog/LinuxGuardianSuiteUI"]:
+# Validate Python & Bash syntax across MacGuardianWatchdog, LinuxGuardianWatchdog, and shared/pipeline
+for g in ["shared/pipeline", "MacGuardianWatchdog/MacGuardianSuite", "LinuxGuardianWatchdog/LinuxGuardianSuite", "LinuxGuardianWatchdog/LinuxGuardianSuiteUI"]:
     for py in (root / g).rglob("*.py"):
         py_compile.compile(str(py), doraise=True)
     print(f"  [\033[0;32mOK\033[0m] Python syntax verified: {g}")
@@ -120,10 +134,16 @@ for g in ["MacGuardianWatchdog", "LinuxGuardianWatchdog"]:
             continue
         subprocess.run(["bash", "-n", str(sh)], check=True)
     print(f"  [\033[0;32mOK\033[0m] Bash syntax verified: {g}")
+
+# Verify end-to-end Detect -> Normalize -> Report pipeline
+out = subprocess.check_output([sys.executable, str(root / "shared/pipeline/normalize_and_report.py"), "--demo"], text=True)
+report = json.loads(out)
+assert report["securityScore"] == 82 and len(report["events"]) == 3
+print("  [\033[0;32mOK\033[0m] End-to-end Detect -> Normalize -> Report pipeline verified (score: 82/100)")
 PY
 
     if [[ "$errors" -eq 0 ]]; then
-        echo -e "\n${GREEN}All 3 Guardians, governance files, and shared schemas are unified and verified.${NC}"
+        echo -e "\n${GREEN}All 3 Guardians, governance files, shared schemas, and telemetry pipeline are verified.${NC}"
     else
         echo -e "\n${RED}Verification failed with $errors missing file(s).${NC}"
         exit 1
@@ -138,12 +158,19 @@ show_status() {
     echo "2. LinuxGuardianWatchdog   : $ROOT_DIR/LinuxGuardianWatchdog (GTK4 / Python / Bash)"
     echo "3. MacGuardianWatchdog     : $ROOT_DIR/MacGuardianWatchdog (SwiftUI / Bash / Python)"
     echo "4. CERBERUS Web Portal     : $ROOT_DIR/src (React / TypeScript / Vite)"
-    echo "5. Shared Schemas & Design : $ROOT_DIR/shared"
+    echo "5. Canonical Shared Layer  : $ROOT_DIR/shared (Schemas, Design, Pipeline)"
 }
 
 case "${1:---status}" in
     --verify)
         verify_suite
+        ;;
+    --sync-schemas)
+        banner
+        sync_schemas
+        ;;
+    --report)
+        python3 "$ROOT_DIR/shared/pipeline/normalize_and_report.py" --demo
         ;;
     --status)
         show_status
@@ -163,7 +190,7 @@ case "${1:---status}" in
         fi
         ;;
     *)
-        echo "Usage: ./cerberus.sh [--status | --verify | --launch | --web]"
+        echo "Usage: ./cerberus.sh [--status | --verify | --sync-schemas | --report | --launch | --web]"
         exit 1
         ;;
 esac
