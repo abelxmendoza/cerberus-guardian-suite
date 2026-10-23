@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <!-- MacGuardian Configuration -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.configuration.managed</string>
+            <key>PayloadIdentifier</key>
+            <string>com.macguardian.watchdog.config</string>
+            <key>PayloadUUID</key>
+            <string>550e8400-e29b-41d4-a716-446655440000</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>MacGuardian Watchdog Configuration</string>
+            <key>PayloadDescription</key>
+            <string>Managed configuration for MacGuardian Watchdog</string>
+            <key>com.macguardian.watchdog</key>
+            <dict>
+                <!-- Read-only config location -->
+                <key>config_path</key>
+                <string>/Library/Managed Preferences/com.macguardian.watchdog/config.yaml</string>
+                <key>read_only</key>
+                <true/>
+                
+                <!-- Module toggles -->
+                <key>modules</key>
+                <dict>
+                    <key>threatlab_enabled</key>
+                    <false/>
+                    <key>remediation_enabled</key>
+                    <true/>
+                    <key>network_monitoring</key>
+                    <true/>
+                    <key>file_integrity_monitoring</key>
+                    <true/>
+                </dict>
+                
+                <!-- SIEM Integration -->
+                <key>siem</key>
+                <dict>
+                    <key>enabled</key>
+                    <true/>
+                    <key>endpoint</key>
+                    <string>https://siem.corporate.com/api/events</string>
+                    <key>api_key</key>
+                    <string>[ENCRYPTED_API_KEY]</string>
+                </dict>
+            </dict>
+        </dict>
+        
+        <!-- Privacy Exemptions -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.TCC.configuration-profile-policy</string>
+            <key>PayloadIdentifier</key>
+            <string>com.macguardian.watchdog.tcc</string>
+            <key>PayloadUUID</key>
+            <string>550e8400-e29b-41d4-a716-446655440001</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>MacGuardian TCC Permissions</string>
+            <key>Services</key>
+            <dict>
+                <key>SystemPolicyAllFiles</key>
+                <array>
+                    <string>com.macguardian.suite.ui</string>
+                </array>
+                <key>SystemPolicySysAdminFiles</key>
+                <array>
+                    <string>com.macguardian.suite.ui</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>MacGuardian Watchdog Enterprise</string>
+    <key>PayloadIdentifier</key>
+    <string>com.macguardian.watchdog.enterprise</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>550e8400-e29b-41d4-a716-446655440002</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
+

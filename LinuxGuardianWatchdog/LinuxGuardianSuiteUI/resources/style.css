@@ -1,0 +1,345 @@
+/* Upstream visual reference: abelxmendoza/MacGuardianWatchdog
+ * MacGuardianSuiteUI/Sources/MacGuardianSuiteUI/ThemeColors.swift.
+ * Lightened text accents preserve readability on the native GTK dark surfaces. */
+/* "Omega Black-Ops" theme — ported from MacGuardianWatchdog's terminal
+ * theme (theme_omega_black_ops.sh) so the Linux GUI matches the original's
+ * dark, purple/red/yellow security-suite look. */
+
+/* Palette sampled from the wolf logo (images/LinuxGuardianLogo.png):
+ * near-black violet ground, neon-violet outline, amber eyes, ember-orange glow. */
+@define-color omega_bg #07030d;
+@define-color omega_bg_raised #130b1f;
+@define-color omega_bg_row_alt #180e27;
+@define-color omega_border alpha(#a94cf0, 0.24);
+@define-color omega_text #ece6f5;
+@define-color omega_text_dim #a79bbd;
+@define-color omega_purple #c196ff;      /* readable text/accent purple */
+@define-color omega_violet #9d2fe0;      /* the logo's outline, for fills and glows */
+@define-color omega_orange #ff7a1f;      /* the "WATCHDOG" ember */
+@define-color omega_red #ff6b7f;
+@define-color omega_yellow #ffb92e;      /* the eyes */
+
+window, .background {
+  background-color: @omega_bg;
+  color: @omega_text;
+}
+
+headerbar {
+  background-image: linear-gradient(to bottom, #1b0f2e, #110a1c);
+  color: @omega_text;
+  border-bottom: 1px solid alpha(@omega_violet, 0.45);
+  box-shadow: 0 1px 14px alpha(@omega_violet, 0.18);
+}
+
+/* Brand lockup: wolf mark + "LinuxGuardian" over spaced-out "WATCHDOG", as in the logo. */
+.brand-mark { filter: drop-shadow(0 0 6px alpha(#9d2fe0, 0.6)); }
+.brand-name { color: @omega_purple; font-weight: 800; font-size: 14px; letter-spacing: 0.4px; }
+.brand-sub  { color: @omega_orange; font-weight: 700; font-size: 8px; letter-spacing: 3px; }
+
+headerbar windowcontrols button {
+  color: @omega_text;
+}
+
+viewswitcher button {
+  color: @omega_text_dim;
+}
+
+viewswitcher button:checked {
+  color: @omega_purple;
+  border-bottom: 2px solid @omega_orange;
+  background-image: linear-gradient(to top, alpha(@omega_violet, 0.22), transparent);
+}
+
+button {
+  background-color: @omega_bg_raised;
+  color: @omega_text;
+  border: 1px solid @omega_border;
+  border-radius: 6px;
+}
+
+button:hover {
+  border-color: @omega_purple;
+}
+
+button.suggested-action {
+  background-image: linear-gradient(135deg, #7a1cc8, #a63ee8);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 0 14px alpha(@omega_violet, 0.35);
+}
+
+button.suggested-action:hover {
+  background-image: linear-gradient(135deg, #8d2ae0, #bd57ff);
+  box-shadow: 0 0 20px alpha(@omega_violet, 0.55);
+}
+
+button.destructive-action {
+  background-color: #963c50;
+  color: #ffffff;
+  border: none;
+}
+
+button.destructive-action:hover {
+  background-color: shade(@omega_red, 1.15);
+}
+
+textview, textview text {
+  background-color: @omega_bg_raised;
+  color: @omega_text;
+  font-family: monospace;
+}
+
+entry {
+  background-color: @omega_bg_raised;
+  color: @omega_text;
+  border: 1px solid @omega_border;
+}
+
+list, listview {
+  background-color: transparent;
+}
+
+row {
+  color: @omega_text;
+}
+
+row:nth-child(even) {
+  background-color: @omega_bg_row_alt;
+}
+
+.omega-card {
+  background-color: @omega_bg_raised;
+  border: 1px solid @omega_border;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.omega-warning {
+  color: @omega_yellow;
+}
+
+.omega-critical {
+  color: @omega_red;
+  font-weight: bold;
+}
+
+.omega-dim {
+  color: @omega_text_dim;
+}
+
+.omega-heading {
+  color: @omega_purple;
+  font-weight: bold;
+}
+
+toast {
+  background-color: @omega_bg_raised;
+  color: @omega_text;
+  border: 1px solid @omega_border;
+}
+
+progressbar > trough {
+  min-height: 12px;
+  border-radius: 6px;
+  background-color: @omega_bg;
+  border: 1px solid @omega_border;
+}
+
+progressbar > trough > progress {
+  min-height: 12px;
+  border-radius: 6px;
+  background-image: linear-gradient(to right, @omega_violet, @omega_orange);
+}
+
+progressbar text {
+  color: @omega_text;
+}
+
+/* Grouped inventory: quiet surfaces, aligned metrics, explicit impact pills. */
+.process-toolbar {
+  background-color: @omega_bg_raised;
+  border: 1px solid @omega_border;
+  border-radius: 12px;
+  padding: 10px;
+}
+.process-group {
+  background-color: @omega_bg_raised;
+  border: 1px solid @omega_border;
+  border-radius: 12px;
+  padding: 14px;
+  transition: border-color 180ms ease, background-image 180ms ease;
+}
+.process-group:hover { border-color: alpha(@omega_purple, 0.6); }
+.process-group > title { padding: 2px 0; }
+.process-group > title > expander { margin-right: 10px; color: @omega_text_dim; }
+.process-metric { font-family: monospace; font-size: 0.95em; color: @omega_text_dim; }
+.impact-badge { border-radius: 20px; padding: 6px 12px; font-size: 0.9em; font-weight: 700; min-width: 100px; }
+.impact-badge.omega-heading { background-color: alpha(@omega_purple, 0.18); border: 1px solid alpha(@omega_purple, 0.5); }
+.impact-badge.omega-warning { background-color: alpha(@omega_yellow, 0.15); border: 1px solid alpha(@omega_yellow, 0.45); }
+.impact-badge.omega-critical { background-color: alpha(@omega_red, 0.18); border: 1px solid alpha(@omega_red, 0.5); }
+.impact-badge.omega-dim { background-color: alpha(@omega_text_dim, 0.1); border: 1px solid alpha(@omega_text_dim, 0.28); }
+button:focus-visible, entry:focus-within, expander:focus-visible {
+  outline: 2px solid @omega_purple;
+  outline-offset: 2px;
+}
+button:disabled { opacity: 0.45; }
+searchentry { border-radius: 8px; }
+.omega-card { padding: 10px; border-radius: 12px; }
+
+.process-members { border-radius: 8px; background-color: @omega_bg; }
+.process-members > row { border-bottom: 1px solid alpha(@omega_text_dim, 0.1); padding: 4px; transition: background-color 120ms ease; }
+.process-members > row:last-child { border-bottom: none; }
+.process-members > row:nth-child(even) { background-color: alpha(@omega_text_dim, 0.035); }
+.process-members > row:hover { background-color: alpha(@omega_purple, 0.1); }
+.impact-note { padding: 12px; border-radius: 8px; background-color: alpha(@omega_text_dim, 0.06); }
+.process-command { font-family: monospace; font-size: 0.9em; color: @omega_text_dim; }
+.process-actions { margin-top: 6px; }
+button.danger-outline { color: @omega_red; background-color: transparent; border-color: alpha(@omega_red, 0.35); }
+button.danger-outline:hover { background-color: alpha(@omega_red, 0.12); border-color: @omega_red; }
+
+.guardian-banner {
+  background-color: alpha(@omega_purple, 0.08);
+  border-left: 3px solid @omega_purple;
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: @omega_text;
+}
+.guardian-banner image { color: @omega_purple; }
+
+/* Process overview: a distinct control surface within the Omega theme. */
+.process-hero {
+  background-image: linear-gradient(120deg, #2d1250, #150c24 70%, #0f0a18);
+  border: 1px solid alpha(@omega_purple, 0.35);
+  border-radius: 18px;
+  padding: 20px;
+}
+.process-stat {
+  background-color: alpha(#000000, 0.22);
+  border: 1px solid alpha(@omega_purple, 0.12);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.process-stat-value { font-size: 26px; font-weight: 800; color: #e6d2ff; }
+.process-stat-caption { font-size: 10px; letter-spacing: 0.6px; color: @omega_text_dim; }
+.process-page .process-group {
+  background-image: linear-gradient(to right, #1f1233, #140d20);
+  border-left: 3px solid @omega_violet;
+  border-radius: 14px;
+  padding: 16px;
+}
+.process-page .process-group:hover {
+  background-image: linear-gradient(to right, #2a1946, #1a1029);
+  border-color: alpha(@omega_purple, 0.65);
+}
+.process-page .process-group.impact-feature_stops { border-left-color: @omega_orange; }
+.process-page .process-group.impact-desktop_affected { border-left-color: @omega_yellow; }
+.process-page .process-group.impact-session_critical { border-left-color: @omega_red; }
+.process-page .process-group.impact-unknown { border-left-color: #a9a8ba; }
+.process-group-icon { background-color: alpha(@omega_purple, 0.1); padding: 12px; border-radius: 12px; }
+.process-group-name { font-size: 16px; font-weight: 700; }
+.process-group-value { font-size: 18px; font-weight: 600; color: @omega_text; }
+.process-page .impact-badge { border: 1px solid alpha(@omega_text_dim, 0.16); padding: 7px 10px; }
+.process-page .guardian-banner { padding: 8px 12px; font-size: 12px; }
+.process-page .process-members { margin-top: 8px; }
+.process-page .process-toolbar { padding: 8px; background-color: #130b1f; }
+
+.process-decision {
+  background-color: alpha(@omega_purple, 0.055);
+  border: 1px solid alpha(@omega_purple, 0.16);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+/* ── Section headers with left purple accent ───────────────────────────── */
+.omega-section-header {
+  border-left: 3px solid @omega_purple;
+  border-radius: 0 6px 6px 0;
+  padding: 8px 14px;
+  background-color: alpha(@omega_purple, 0.07);
+}
+.omega-section-title {
+  color: @omega_purple;
+  font-weight: 800;
+}
+.omega-section-count {
+  color: @omega_text_dim;
+  font-size: smaller;
+}
+
+/* ── CPU / MEM metric chips ────────────────────────────────────────────── */
+.omega-metric {
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: smaller;
+  font-weight: 700;
+  min-width: 72px;
+}
+.omega-metric-dim {
+  background-color: alpha(@omega_text_dim, 0.1);
+  color: @omega_text_dim;
+}
+.omega-metric-normal {
+  background-color: alpha(@omega_purple, 0.18);
+  color: @omega_purple;
+}
+.omega-metric-warning {
+  background-color: alpha(@omega_yellow, 0.16);
+  color: @omega_yellow;
+}
+.omega-metric-critical {
+  background-color: alpha(@omega_red, 0.2);
+  color: @omega_red;
+}
+
+/* ── Brand touches ─────────────────────────────────────────────────────── */
+.omega-card { box-shadow: 0 2px 16px alpha(#000000, 0.45), inset 0 1px 0 alpha(@omega_violet, 0.12); }
+.omega-section-header { border-left-color: @omega_orange; background-image: linear-gradient(to right, alpha(@omega_violet, 0.14), transparent); }
+.guardian-banner { border-left-color: @omega_orange; background-color: alpha(@omega_orange, 0.07); }
+.guardian-banner image { color: @omega_orange; }
+.title-1 { text-shadow: 0 0 18px alpha(@omega_violet, 0.35); }
+scrollbar slider { background-color: alpha(@omega_violet, 0.5); border-radius: 6px; }
+scrollbar slider:hover { background-color: @omega_violet; }
+check:checked, radio:checked { background-color: @omega_violet; border-color: @omega_violet; color: #ffffff; }
+
+/* ── Updates: plain-language groups with the real package names kept underneath ─────────────── */
+.update-group { padding: 4px 0; }
+.update-group-title { color: @omega_purple; font-weight: 800; font-size: 15px; }
+.update-chip { background-color: alpha(@omega_violet, 0.22); color: @omega_text; border-radius: 10px; padding: 1px 9px; font-size: 11px; font-weight: 700; }
+.update-name { font-weight: 700; font-size: 14px; }
+.update-raw { font-family: monospace; font-size: 11px; color: @omega_text_dim; }
+
+/* Eight tabs: keep the switcher compact so it fits beside the brand and window buttons. */
+viewswitcher button { padding-left: 6px; padding-right: 6px; min-width: 0; }
+viewswitcher button label { font-size: 12px; }
+
+/* ── Activity: plain-language results instead of terminal output ──────────────────────────── */
+.activity-banner { border-radius: 12px; padding: 12px 16px; border: 1px solid alpha(@omega_text_dim, 0.25); }
+.activity-banner.activity-ok { background-image: linear-gradient(120deg, alpha(@omega_violet, 0.28), alpha(@omega_violet, 0.08)); border-color: alpha(@omega_violet, 0.6); }
+.activity-banner.activity-warn { background-color: alpha(@omega_yellow, 0.12); border-color: alpha(@omega_yellow, 0.5); }
+.activity-banner.activity-fail { background-color: alpha(@omega_red, 0.15); border-color: alpha(@omega_red, 0.6); }
+.activity-banner.activity-info, .activity-banner.activity-running { background-color: alpha(@omega_text_dim, 0.08); }
+.activity-headline { font-weight: 700; font-size: 15px; }
+.activity-card { background-color: @omega_bg_raised; border: 1px solid @omega_border; border-left: 4px solid alpha(@omega_text_dim, 0.5); border-radius: 12px; padding: 12px 14px; }
+.activity-card.activity-ok { border-left-color: @omega_violet; }
+.activity-card.activity-warn { border-left-color: @omega_yellow; }
+.activity-card.activity-fail { border-left-color: @omega_red; }
+.activity-card.activity-running { border-left-color: @omega_orange; }
+.activity-title { font-weight: 800; font-size: 14px; }
+.activity-chip { border-radius: 10px; padding: 1px 10px; font-size: 11px; font-weight: 700; background-color: alpha(@omega_text_dim, 0.18); }
+.activity-chip-ok { background-color: alpha(@omega_violet, 0.3); color: #e6d2ff; }
+.activity-chip-warn { background-color: alpha(@omega_yellow, 0.2); color: @omega_yellow; }
+.activity-chip-fail { background-color: alpha(@omega_red, 0.25); color: @omega_red; }
+.activity-chip-running { background-color: alpha(@omega_orange, 0.22); color: @omega_orange; }
+.activity-mark-ok { color: @omega_purple; font-weight: 800; }
+.activity-mark-warn { color: @omega_yellow; font-weight: 800; }
+.activity-mark-fail { color: @omega_red; font-weight: 800; }
+.activity-mark-info { color: @omega_text_dim; }
+.activity-group-title { font-weight: 700; }
+
+/* Exposure: five steps, outside in. The left edge is the step's severity. */
+.exposure-rung { border-left: 4px solid alpha(@omega_text_dim, 0.45); }
+.exposure-rung.rung-critical { border-left-color: @omega_red; }
+.exposure-rung.rung-warning { border-left-color: @omega_yellow; }
+.exposure-rung.rung-info { border-left-color: @omega_purple; }
+.exposure-rung.rung-quiet { border-left-color: alpha(@omega_text_dim, 0.35); }
+.exposure-caption { font-family: monospace; font-size: 0.85em; }

@@ -1,0 +1,13 @@
+<Page x:Class="WindowsGuardianWatchdog.Views.SettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:guide="using:WindowsGuardianWatchdog.Components">
+  <ScrollViewer Background="{StaticResource BackgroundBlackBrush}">
+    <StackPanel Padding="32" Spacing="22" MaxWidth="1000">
+      <guide:PageGuide Title="Settings" Priority="Optional"
+                       Summary="How careful the app is, and what stays on this PC."
+                       Why="Leave preview turned on. That way cleanup and repairs show you the change before they make it."/>
+      <Border Style="{StaticResource SectionCardStyle}"><StackPanel Spacing="14"><TextBlock Text="Carefulness" Style="{StaticResource SectionTitleTextStyle}"/><TextBlock Text="Importance: leave this on." Style="{StaticResource BodyTextStyle}"/><ToggleSwitch x:Name="SafeModeToggle" Header="Preview before changing anything" IsOn="True" Toggled="SafeModeToggle_Toggled" OnContent="On" OffContent="Off"/><TextBlock Text="While this is on, cleanup and repairs describe the change before they do it." TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}"/></StackPanel></Border>
+      <Border Style="{StaticResource SectionCardStyle}"><StackPanel Spacing="12"><TextBlock Text="Privacy" Style="{StaticResource SectionTitleTextStyle}"/><TextBlock Text="Your information stays here" FontSize="18" FontWeight="SemiBold"/><TextBlock Text="Lists, scores, and notes are saved on this PC. They are not sent to us. The internet is used only when you ask to update apps, check Windows, or download the public list of known issues." TextWrapping="Wrap" Style="{StaticResource BodyTextStyle}"/></StackPanel></Border>
+      <Border Style="{StaticResource SectionCardStyle}"><StackPanel Spacing="12"><TextBlock Text="Permission" Style="{StaticResource SectionTitleTextStyle}"/><InfoBar IsOpen="True" IsClosable="False" Severity="Informational" Title="Windows may ask for approval" Message="Changing protection, installing updates, and clearing some files needs administrator approval. If you say no, the app leaves that part unchanged."/></StackPanel></Border>
+      <Border Style="{StaticResource SectionCardStyle}"><StackPanel Spacing="8"><TextBlock Text="About" Style="{StaticResource SectionTitleTextStyle}"/><TextBlock Text="Windows Guardian" FontSize="18" FontWeight="SemiBold"/><TextBlock Text="Version 1.0.0 · for Windows 10 and Windows 11" Style="{StaticResource BodyTextStyle}"/><TextBlock Text="Everyday care for this PC: updates, cleanup, hardware, and protection." Style="{StaticResource BodyTextStyle}"/></StackPanel></Border>
+    </StackPanel>
+  </ScrollViewer>
+</Page>

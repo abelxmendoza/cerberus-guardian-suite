@@ -1,0 +1,50 @@
+MIT License
+
+Copyright (c) 2024 MacGuardian Suite Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Components
+
+This software includes or depends on the following third-party components:
+
+- **ClamAV**: GPL-2.0 License
+- **rkhunter**: GPL-2.0 License
+- **Python Standard Library**: Python Software Foundation License
+- **Bash**: GPL-3.0 License
+
+Please refer to the respective licenses of these components for their terms.
+
+## Disclaimer
+
+This software is provided for security and system management purposes. The authors
+and contributors are not responsible for any damage, data loss, or security
+breaches that may result from the use or misuse of this software. Users are
+encouraged to:
+
+1. Review and understand the code before use
+2. Test in a safe environment first
+3. Keep backups of important data
+4. Use dry-run mode before executing remediation
+5. Review quarantined files before permanent deletion
+
+Use at your own risk.
+

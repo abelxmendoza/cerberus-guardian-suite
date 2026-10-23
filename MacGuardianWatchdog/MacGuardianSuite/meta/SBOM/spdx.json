@@ -1,0 +1,64 @@
+{
+  "SPDXVersion": "SPDX-2.3",
+  "DataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "DocumentName": "MacGuardian Watchdog",
+  "DocumentNamespace": "https://omegatechnologies.com/macguardian/spdx/1.0.0",
+  "Creator": {
+    "Person": "Abel \"El Reaper\" Mendoza",
+    "Organization": "Omega Technologies",
+    "Tool": ["SPDX Tool"]
+  },
+  "Created": "2024-01-15T00:00:00Z",
+  "PackageName": "MacGuardian Watchdog",
+  "SPDXID": "SPDXRef-Package",
+  "PackageVersion": "1.0.0",
+  "PackageDownloadLocation": "NOASSERTION",
+  "FilesAnalyzed": true,
+  "PackageLicenseConcluded": "MIT",
+  "PackageLicenseDeclared": "MIT",
+  "PackageCopyrightText": "Copyright (c) 2024 Omega Technologies",
+  "PackageDescription": "Production-grade macOS security platform with real-time monitoring, blue-team auditing, and intrusion detection",
+  "Files": [
+    {
+      "SPDXID": "SPDXRef-CoreModules",
+      "FileName": "core/",
+      "FileType": ["BINARY", "SOURCE"],
+      "FileChecksum": {
+        "Algorithm": "SHA256",
+        "ChecksumValue": "[TO_BE_CALCULATED]"
+      },
+      "LicenseConcluded": "MIT",
+      "LicenseInfoInFile": ["MIT"],
+      "FileCopyrightText": "Copyright (c) 2024 Omega Technologies"
+    },
+    {
+      "SPDXID": "SPDXRef-PythonDependencies",
+      "FileName": "outputs/event_bus.py",
+      "FileType": ["SOURCE"],
+      "FileChecksum": {
+        "Algorithm": "SHA256",
+        "ChecksumValue": "[TO_BE_CALCULATED]"
+      },
+      "LicenseConcluded": "MIT",
+      "LicenseInfoInFile": ["MIT"],
+      "FileCopyrightText": "Copyright (c) 2024 Omega Technologies"
+    }
+  ],
+  "Relationships": [
+    {
+      "SPDXID": "SPDXRef-Relationship-1",
+      "RelationshipType": "DESCRIBES",
+      "RelatedSpdxElement": "SPDXRef-DOCUMENT",
+      "RelationshipComment": "Document describes the MacGuardian Watchdog package"
+    }
+  ],
+  "ExternalRefs": [
+    {
+      "ReferenceCategory": "SECURITY",
+      "ReferenceType": "cpe23Type",
+      "ReferenceLocator": "cpe:2.3:a:omegatechnologies:macguardian:1.0.0:*:*:*:*:*:*:*"
+    }
+  ]
+}
+

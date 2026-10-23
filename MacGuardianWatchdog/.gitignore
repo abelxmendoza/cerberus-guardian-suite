@@ -1,0 +1,84 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Xcode
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+!*.xcworkspace/xcshareddata/
+*.xcuserdata/
+*.xcscmblueprint
+build/
+DerivedData/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# MacGuardian specific
+.macguardian/
+*.log
+*.jsonl
+*.json.bak
+*.tmp
+
+# Test artifacts
+test-results/
+coverage/
+*.coverage
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Secrets and credentials
+*.pem
+*.key
+*.cert
+*.p12
+secrets.yaml
+.env
+.env.local
+
+# Build artifacts
+*.dmg
+*.pkg
+*.zip
+*.tar.gz
+release/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Logs
+logs/
+*.log
+
+# Event files (can be large)
+events/
+*.event
+
+# Baselines (user-specific)
+baselines/

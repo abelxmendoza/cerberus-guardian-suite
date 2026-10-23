@@ -1,28 +1,28 @@
 import type { GuardianId, ReleaseRecord } from "./types";
 
 /**
- * Download configuration for CERBERUS.
- * Each link is a GitHub archive of the commit below.
- * SHA-256 values were computed from those exact files on 14 October 2026.
- * All three Guardians are in active development. Windows is the least ready.
- * Its archive is source, not the signed MSIX described in that repository.
+ * Download configuration for CERBERUS (CerberusGuardian-SecuritySuite).
+ * Each link is a GitHub archive of the latest commit below.
+ * SHA-256 values were computed from those exact archives on 22 October 2026.
+ * All three Guardians are unified in CerberusGuardian-SecuritySuite and in active development.
+ * Windows is the least ready; its archive is source, not the signed MSIX described in that repository.
  */
 export const releases: Record<GuardianId, ReleaseRecord> = {
   windows: {
-    version: "f8b5feb",
+    version: "7b3f424",
     versionNote:
-      "Active development, and the least ready Guardian. The button downloads the Windows project archive for commit f8b5feb. Unzip it and build it on your PC. This is not the signed MSIX. That installer is not published.",
+      "Active development, and the least ready Guardian. The button downloads the Windows project archive for commit 7b3f424 (including ported change watch, reversible quarantine, exposure inventory, self-check, and reports). Unzip it and build it on your PC. This is not the signed MSIX.",
     releaseStatus: "beta",
     statusLabel: "Least ready",
-    releaseDate: "14 October 2026",
-    fileSize: "2.2 MB",
-    checksum: "a1baf00e819b04af570328e943cfe83004b5484a9e8fb8300257e9bf8449824e",
+    releaseDate: "22 October 2026",
+    fileSize: "2.3 MB",
+    checksum: "b40ce993c60eefed7864149b4df597e497a798f41b5ce8781b8634c9f6309c66",
     architectures: ["source archive"],
     downloadUrl:
-      "https://github.com/abelxmendoza/WindowsGuardianWatchdog/archive/f8b5febb2ba393dd1d3b3cff5f32a29d6e8c826b.zip",
+      "https://github.com/abelxmendoza/WindowsGuardianWatchdog/archive/7b3f424ab921c03b63142185e709fcdb9fd3ba39.zip",
     downloadLabel: "Download for Windows",
     releaseNotesUrl:
-      "https://github.com/abelxmendoza/WindowsGuardianWatchdog/commit/f8b5febb2ba393dd1d3b3cff5f32a29d6e8c826b",
+      "https://github.com/abelxmendoza/WindowsGuardianWatchdog/commit/7b3f424ab921c03b63142185e709fcdb9fd3ba39",
     releasePageUrl: "https://github.com/abelxmendoza/WindowsGuardianWatchdog/releases",
   },
   linux: {
@@ -43,20 +43,20 @@ export const releases: Record<GuardianId, ReleaseRecord> = {
     releasePageUrl: "https://github.com/abelxmendoza/LinuxGuardianWatchdog",
   },
   macos: {
-    version: "e337fad",
+    version: "fed9b33",
     versionNote:
-      "In active development. The button downloads the macOS archive for commit e337fad. Unzip it and double-click Install MacGuardian.command: it builds the app on your Mac with Xcode and installs it. This is not a notarized installer.",
+      "In active development. The button downloads the macOS archive for commit fed9b33 (one-step install.sh, self-check, and complete Homebrew/app update controls). Unzip it and double-click Install MacGuardian.command: it builds the app on your Mac with Xcode and installs it. This is not a notarized installer.",
     releaseStatus: "stable",
     statusLabel: "Active development",
     releaseDate: "14 October 2026",
     fileSize: "16.3 MB",
-    checksum: "c06f1d6df056811ca98efd3e1e43313da2d1d34c9047f8ad831ad8930cfd0c5d",
+    checksum: "386d037db3a1e0e24024462465aeebec52c8e75b2ba9f515283bf1c798f2afa6",
     architectures: ["source archive"],
     downloadUrl:
-      "https://github.com/abelxmendoza/MacGuardianWatchdog/archive/e337fadff778d4a5dd985525de87984802f9362a.zip",
+      "https://github.com/abelxmendoza/MacGuardianWatchdog/archive/fed9b33dc85fb6ec50b3e51ae906f0819a2374e0.zip",
     downloadLabel: "Download for macOS",
     releaseNotesUrl:
-      "https://github.com/abelxmendoza/MacGuardianWatchdog/commit/e337fadff778d4a5dd985525de87984802f9362a",
+      "https://github.com/abelxmendoza/MacGuardianWatchdog/commit/fed9b33dc85fb6ec50b3e51ae906f0819a2374e0",
     releasePageUrl: "https://github.com/abelxmendoza/MacGuardianWatchdog",
   },
 };

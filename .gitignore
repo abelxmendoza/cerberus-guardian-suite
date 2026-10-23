@@ -1,11 +1,39 @@
+# Web Portal (Node / Vite / Playwright)
 node_modules
 dist
-.vercel
-playwright-report
-test-results
-blob-report
-.DS_Store
+dist-ssr
 *.local
-.vite
-coverage
-.env*
+test-results
+playwright-report
+blob-report
+playwright/.cache
+
+# WindowsGuardianWatchdog (.NET / Visual Studio)
+WindowsGuardianWatchdog/bin/
+WindowsGuardianWatchdog/obj/
+WindowsGuardianWatchdog/.vs/
+WindowsGuardianWatchdog/dist/
+WindowsGuardianWatchdog/*.user
+WindowsGuardianWatchdog/ PublishOutputs/
+
+# LinuxGuardianWatchdog (Python / pytest)
+LinuxGuardianWatchdog/.venv/
+LinuxGuardianWatchdog/**/__pycache__/
+LinuxGuardianWatchdog/.pytest_cache/
+LinuxGuardianWatchdog/**/.pytest_cache/
+LinuxGuardianWatchdog/.ruff_cache/
+LinuxGuardianWatchdog/.coverage
+
+# MacGuardianWatchdog (Xcode / Swift / Python)
+MacGuardianWatchdog/**/.build/
+MacGuardianWatchdog/**/DerivedData/
+MacGuardianWatchdog/**/__pycache__/
+MacGuardianWatchdog/**/*.xcuserdata/
+
+# OS & Editor files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+**/__pycache__/
+*.pyc

@@ -1,0 +1,99 @@
+# Alert Policies Configuration
+# Defines routing rules for security events
+
+# Email alerts
+email:
+  enabled: false  # Set to true to enable email alerts
+  address: ""     # Email address for alerts
+  severity_filter:
+    - critical
+    - high
+  cooldown: 300    # Seconds between emails for same alert type
+
+# macOS Notifications
+notifications:
+  enabled: true    # Enable macOS notifications
+  severity_filter:
+    - critical
+    - high
+    - medium
+  cooldown: 60    # Seconds between notifications
+
+# Webhook alerts
+webhook:
+  enabled: false   # Set to true to enable webhooks
+  url: ""         # Webhook URL
+  severity_filter:
+    - critical
+    - high
+  cooldown: 300   # Seconds between webhooks
+
+# Event type routing
+event_routing:
+  # Critical events always alert
+  critical:
+    email: true
+    notification: true
+    webhook: true
+    create_incident: true
+  
+  # High severity events
+  high:
+    email: true
+    notification: true
+    webhook: true
+    create_incident: true
+  
+  # Medium severity events
+  medium:
+    email: false
+    notification: true
+    webhook: false
+    create_incident: false
+  
+  # Low severity events
+  low:
+    email: false
+    notification: false
+    webhook: false
+    create_incident: false
+
+# Specific event type overrides
+event_overrides:
+  ransomware_activity:
+    email: true
+    notification: true
+    webhook: true
+    create_incident: true
+    cooldown: 0  # No cooldown for ransomware
+  
+  ids_alert:
+    email: true
+    notification: true
+    webhook: true
+    create_incident: true
+  
+  signature_hit:
+    email: true
+    notification: true
+    webhook: false
+    create_incident: true
+  
+  ssh_key_change:
+    email: true
+    notification: true
+    webhook: true
+    create_incident: true
+  
+  user_account_change:
+    email: true
+    notification: true
+    webhook: false
+    create_incident: true
+
+# Rate limiting
+rate_limiting:
+  max_alerts_per_hour: 50
+  max_alerts_per_day: 200
+  throttle_threshold: 10  # Alerts per minute before throttling
+
