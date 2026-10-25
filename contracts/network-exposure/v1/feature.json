@@ -1,0 +1,29 @@
+{
+  "id": "network-exposure",
+  "version": "1.0.0",
+  "description": "Portable network listener exposure reporting contract. Detection-only; no inferred firewall block claims.",
+  "platforms": [
+    "macos",
+    "linux",
+    "windows"
+  ],
+  "fields": {
+    "platform": "macos|linux|windows",
+    "protocol": "tcp|udp",
+    "bind_address": "IP address as string",
+    "port": "integer 1..65535",
+    "service_class": "remote_control|admin|database|remote_login|web|mail|printing|dns|discovery|vpn|robotics|unknown",
+    "owner_visibility": "visible|unavailable|unknown",
+    "reachability": "loopback|non_loopback|unknown",
+    "firewall_verdict": "verified_allowed|verified_denied|unknown",
+    "severity": "info|warning|critical",
+    "enforcement": "observed_only"
+  },
+  "rules": [
+    "Loopback bind -> reachability loopback.",
+    "Wildcard and non-loopback binds -> non_loopback, NOT necessarily internet reachable.",
+    "Unprivileged firewall visibility -> unknown unless a validated rule evaluator proves otherwise.",
+    "Unknown owner and failed collection are explicit, not silent pass.",
+    "Severity is advisory; no action is performed."
+  ]
+}
