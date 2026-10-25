@@ -1,0 +1,23 @@
+name: Cerberus contracts
+on:
+  push:
+    paths:
+      - 'contracts/**'
+      - '.github/workflows/cerberus-contracts.yml'
+  pull_request:
+    paths:
+      - 'contracts/**'
+      - '.github/workflows/cerberus-contracts.yml'
+permissions:
+  contents: read
+jobs:
+  conformance:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run contract tests
+        run: python -m unittest discover -s contracts/network-exposure/v1 -p "test_*.py" -v
