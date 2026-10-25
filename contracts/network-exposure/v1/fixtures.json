@@ -1,0 +1,66 @@
+[
+  {
+    "id": "local-dev-server",
+    "input": {
+      "platform": "linux",
+      "protocol": "tcp",
+      "bind_address": "127.0.0.1",
+      "port": 5173,
+      "service_class": "web",
+      "owner_visibility": "visible",
+      "firewall_verdict": "unknown"
+    },
+    "expected": {
+      "reachability": "loopback",
+      "enforcement": "observed_only"
+    }
+  },
+  {
+    "id": "public-postgres-bind",
+    "input": {
+      "platform": "macos",
+      "protocol": "tcp",
+      "bind_address": "0.0.0.0",
+      "port": 5432,
+      "service_class": "database",
+      "owner_visibility": "unavailable",
+      "firewall_verdict": "unknown"
+    },
+    "expected": {
+      "reachability": "non_loopback",
+      "enforcement": "observed_only"
+    }
+  },
+  {
+    "id": "ipv6-loopback",
+    "input": {
+      "platform": "windows",
+      "protocol": "tcp",
+      "bind_address": "::1",
+      "port": 22,
+      "service_class": "remote_login",
+      "owner_visibility": "visible",
+      "firewall_verdict": "unknown"
+    },
+    "expected": {
+      "reachability": "loopback",
+      "enforcement": "observed_only"
+    }
+  },
+  {
+    "id": "ipv6-wildcard",
+    "input": {
+      "platform": "windows",
+      "protocol": "tcp",
+      "bind_address": "::",
+      "port": 11434,
+      "service_class": "admin",
+      "owner_visibility": "unknown",
+      "firewall_verdict": "unknown"
+    },
+    "expected": {
+      "reachability": "non_loopback",
+      "enforcement": "observed_only"
+    }
+  }
+]
